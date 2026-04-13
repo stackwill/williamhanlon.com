@@ -11,6 +11,19 @@ export type ProjectItem = {
   readonly links: readonly LinkItem[];
 };
 
+export type HighlightItem = {
+  readonly label: string;
+  readonly value: string;
+};
+
+export type CarouselSlide = {
+  readonly src: string;
+  readonly alt: string;
+  readonly eyebrow: string;
+  readonly title: string;
+  readonly caption: string;
+};
+
 export const siteData = {
   name: "William Hanlon",
   location: "Ely, UK",
@@ -22,6 +35,44 @@ export const siteData = {
     email: "willliamjhanlon@icloud.com",
     github: "https://github.com/stackwill",
   },
+  heroHighlights: [
+    {
+      label: "Placement",
+      value: "Year 10 placement in Dubai",
+    },
+    {
+      label: "Outcome",
+      value: "Offered paid remote work afterwards",
+    },
+    {
+      label: "Systems",
+      value: "Homelab and self-hosted services",
+    },
+    {
+      label: "Focus",
+      value: "Software, DevOps, sysadmin and AI",
+    },
+  ] satisfies readonly HighlightItem[],
+  carouselSlides: [
+    {
+      src: "/carousel-starter.jpeg",
+      alt:
+        "Will Hanlon working on a laptop connected to external monitors while building an event logistics interface during placement.",
+      eyebrow: "Internal tooling",
+      title: "Redesign work in progress",
+      caption:
+        "Working on an internal interface during my placement, with the Mission Global office environment visible around the setup.",
+    },
+    {
+      src: "/mission-global-image.jpeg",
+      alt:
+        "Will Hanlon standing with a mug in the Mission Global office in Dubai while colleagues work at nearby desks.",
+      eyebrow: "Mission Global",
+      title: "Year 10 placement in Dubai",
+      caption:
+        "I redesigned part of an internal project management system and was later offered paid remote work.",
+    },
+  ] satisfies readonly CarouselSlide[],
   placement: {
     eyebrow: "Year 10 placement",
     company: "Mission Global",

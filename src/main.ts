@@ -1,5 +1,11 @@
 import "./styles.css";
-import { siteData, type LinkItem, type ProjectItem } from "./content/site";
+import {
+  siteData,
+  type CarouselSlide,
+  type HighlightItem,
+  type LinkItem,
+  type ProjectItem,
+} from "./content/site";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 
@@ -26,15 +32,67 @@ const escapeHtml = (value: string) =>
   });
 
 const renderLinks = (links: readonly LinkItem[]) =>
-  links
+  `<ul class="project-links">${links
     .map(
-      (link) =>
-        `<a class="inline-link" href="${escapeHtml(link.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`
+      (link) => `
+        <li>
+          <a class="inline-link" href="${escapeHtml(link.href)}" target="_blank" rel="noopener noreferrer">
+            ${escapeHtml(link.label)}
+          </a>
+        </li>
+      `
     )
-    .join('<span aria-hidden="true"> · </span>');
+    .join("")}</ul>`;
 
-const renderBulletList = (items: readonly string[]) =>
-  `<ul class="detail-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+const renderBulletList = (items: readonly string[], className = "detail-list") =>
+  `<ul class="${className}">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+
+const renderHighlights = (items: readonly HighlightItem[]) =>
+  items
+    .map(
+      (item) => `
+        <article class="highlight-item">
+          <p class="highlight-label">${escapeHtml(item.label)}</p>
+          <p class="highlight-value">${escapeHtml(item.value)}</p>
+        </article>
+      `
+    )
+    .join("");
+
+const renderCarouselSlides = (slides: readonly CarouselSlide[]) =>
+  slides
+    .map(
+      (slide, index) => `
+        <article class="carousel-slide" data-active="${index === 0}">
+          <img
+            src="${escapeHtml(slide.src)}"
+            alt="${escapeHtml(slide.alt)}"
+            class="carousel-image"
+          />
+          <div class="carousel-overlay">
+            <p class="carousel-eyebrow">${escapeHtml(slide.eyebrow)}</p>
+            <h2 class="carousel-title">${escapeHtml(slide.title)}</h2>
+            <p class="carousel-caption">${escapeHtml(slide.caption)}</p>
+          </div>
+        </article>
+      `
+    )
+    .join("");
+
+const renderCarouselDots = (slides: readonly CarouselSlide[]) =>
+  slides
+    .map(
+      (_, index) => `
+        <button
+          class="carousel-dot"
+          type="button"
+          aria-label="Show slide ${index + 1}"
+          aria-current="${index === 0}"
+          data-index="${index}"
+        ></button>
+      `
+    )
+    .join("");
 
 const renderProjects = (projects: readonly ProjectItem[]) =>
   projects
@@ -42,22 +100,13 @@ const renderProjects = (projects: readonly ProjectItem[]) =>
       (project) => `
         <article class="project-item">
           <div class="project-meta">
-            <p class="eyebrow">Project</p>
+            <p class="project-kicker">${escapeHtml(project.type)}</p>
             <h3>${escapeHtml(project.name)}</h3>
           </div>
           <div class="project-body">
-            <dl class="project-facts">
-              <div>
-                <dt>Languages</dt>
-                <dd>${escapeHtml(project.languages)}</dd>
-              </div>
-              <div>
-                <dt>Type</dt>
-                <dd>${escapeHtml(project.type)}</dd>
-              </div>
-            </dl>
+            <p class="project-languages">${escapeHtml(project.languages)}</p>
             <p>${escapeHtml(project.description)}</p>
-            <div class="project-links">${renderLinks(project.links)}</div>
+            ${renderLinks(project.links)}
           </div>
         </article>
       `
@@ -66,80 +115,167 @@ const renderProjects = (projects: readonly ProjectItem[]) =>
 
 app.innerHTML = `
   <main class="page-shell">
-    <header class="hero section">
+    <header class="hero">
       <div class="hero-copy">
         <p class="eyebrow">Portfolio</p>
         <h1>${escapeHtml(siteData.name)}</h1>
-        <p class="hero-context">${escapeHtml(siteData.context)} · ${escapeHtml(siteData.location)}</p>
+        <p class="hero-context">
+          <span class="hero-stamp">${escapeHtml(siteData.context)}</span>
+          <span class="hero-separator" aria-hidden="true">·</span>
+          <span>${escapeHtml(siteData.location)}</span>
+        </p>
         <p class="hero-intro">${escapeHtml(siteData.intro)}</p>
         <p class="hero-availability">${escapeHtml(siteData.availability)}</p>
         <div class="hero-actions">
           <a class="button-link primary-link" href="mailto:${escapeHtml(siteData.contact.email)}">Email me</a>
           <a class="button-link" href="${escapeHtml(siteData.contact.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
+        <section class="highlight-grid" aria-label="Top evidence">
+          ${renderHighlights(siteData.heroHighlights)}
+        </section>
       </div>
+      <section class="hero-media" aria-label="Placement image carousel">
+        <div class="carousel-shell">
+          <div class="carousel-viewport">
+            ${renderCarouselSlides(siteData.carouselSlides)}
+          </div>
+          <div class="carousel-controls">
+            <div class="carousel-dots" role="tablist" aria-label="Carousel pagination">
+              ${renderCarouselDots(siteData.carouselSlides)}
+            </div>
+            <p class="carousel-status">
+              <span class="carousel-status-value">1/${siteData.carouselSlides.length}</span>
+            </p>
+          </div>
+        </div>
+      </section>
     </header>
 
-    <section class="section featured-placement" aria-labelledby="placement-heading">
-      <div class="section-heading">
-        <p class="eyebrow">${escapeHtml(siteData.placement.eyebrow)}</p>
-        <h2 id="placement-heading">${escapeHtml(siteData.placement.company)}</h2>
-        <p class="section-note">${escapeHtml(siteData.placement.location)}</p>
-      </div>
-      <figure class="placement-media">
-        <img
-          src="${escapeHtml(siteData.placement.imageSrc)}"
-          alt="${escapeHtml(siteData.placement.imageAlt)}"
-          class="placement-image"
-        />
-        <figcaption>${escapeHtml(siteData.placement.caption)}</figcaption>
-      </figure>
+    <section class="overview-grid" aria-label="Core experience summary">
+      <article class="info-panel">
+        <div class="section-heading compact">
+          <p class="eyebrow">${escapeHtml(siteData.placement.eyebrow)}</p>
+          <h2>${escapeHtml(siteData.placement.company)}</h2>
+          <p class="section-note">${escapeHtml(siteData.placement.location)}</p>
+        </div>
+        <p class="panel-copy">${escapeHtml(siteData.placement.caption)}</p>
+      </article>
+
+      <article class="info-panel">
+        <div class="section-heading compact">
+          <p class="eyebrow">Systems</p>
+          <h2 id="infrastructure-heading">Infrastructure</h2>
+        </div>
+        ${renderBulletList(siteData.infrastructure.slice(0, 4), "panel-list")}
+      </article>
+
+      <article class="info-panel">
+        <div class="section-heading compact">
+          <p class="eyebrow">Delivery</p>
+          <h2 id="delivery-heading">Deployment and ops</h2>
+        </div>
+        ${renderBulletList(siteData.delivery, "panel-list")}
+      </article>
+
+      <article class="info-panel">
+        <div class="section-heading compact">
+          <p class="eyebrow">Direction</p>
+          <h2 id="ai-heading">Current interests</h2>
+        </div>
+        ${renderBulletList(siteData.ai, "panel-list")}
+      </article>
     </section>
 
-    <section class="section" aria-labelledby="infrastructure-heading">
-      <div class="section-heading">
-        <p class="eyebrow">Infrastructure</p>
-        <h2 id="infrastructure-heading">Systems experience</h2>
-      </div>
-      ${renderBulletList(siteData.infrastructure)}
-    </section>
-
-    <section class="section" aria-labelledby="delivery-heading">
-      <div class="section-heading">
-        <p class="eyebrow">Delivery</p>
-        <h2 id="delivery-heading">Deployment and operations</h2>
-      </div>
-      ${renderBulletList(siteData.delivery)}
-    </section>
-
-    <section class="section" aria-labelledby="projects-heading">
-      <div class="section-heading">
+    <section class="section-block" aria-labelledby="projects-heading">
+      <div class="section-heading section-header">
         <p class="eyebrow">Projects</p>
         <h2 id="projects-heading">Selected work</h2>
+        <p class="section-note">Compact, strongest-first, with GitHub as supporting proof.</p>
       </div>
-      <div class="projects-grid">
+      <div class="project-list">
         ${renderProjects(siteData.projects)}
       </div>
     </section>
 
-    <section class="section" aria-labelledby="ai-heading">
-      <div class="section-heading">
-        <p class="eyebrow">AI</p>
-        <h2 id="ai-heading">Current interests</h2>
-      </div>
-      ${renderBulletList(siteData.ai)}
-    </section>
-
-    <section class="section contact-section" aria-labelledby="contact-heading">
-      <div class="section-heading">
+    <section class="section-block contact-section" aria-labelledby="contact-heading">
+      <div class="section-heading section-header">
         <p class="eyebrow">Contact</p>
         <h2 id="contact-heading">Get in touch</h2>
+        <p class="section-note">Best first step: email me directly.</p>
       </div>
-      <p>If you'd like to talk about internships, junior roles, software, infrastructure or AI, email me.</p>
-      <div class="hero-actions">
-        <a class="button-link primary-link" href="mailto:${escapeHtml(siteData.contact.email)}">${escapeHtml(siteData.contact.email)}</a>
-        <a class="button-link" href="${escapeHtml(siteData.contact.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <div class="contact-grid">
+        <p class="contact-copy">If you'd like to talk about internships, junior roles, software, DevOps, sysadmin work, infrastructure or AI, email me.</p>
+        <div class="hero-actions">
+          <a class="button-link primary-link" href="mailto:${escapeHtml(siteData.contact.email)}">${escapeHtml(siteData.contact.email)}</a>
+          <a class="button-link" href="${escapeHtml(siteData.contact.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
       </div>
     </section>
   </main>
 `;
+
+const slides = Array.from(document.querySelectorAll<HTMLElement>(".carousel-slide"));
+const dots = Array.from(document.querySelectorAll<HTMLButtonElement>(".carousel-dot"));
+const carouselShell = document.querySelector<HTMLElement>(".carousel-shell");
+const carouselStatus = document.querySelector<HTMLElement>(".carousel-status-value");
+
+let activeSlide = 0;
+let carouselTimer: number | undefined;
+
+const setActiveSlide = (index: number) => {
+  if (slides.length === 0) {
+    return;
+  }
+
+  activeSlide = (index + slides.length) % slides.length;
+
+  slides.forEach((slide, slideIndex) => {
+    slide.dataset.active = String(slideIndex === activeSlide);
+  });
+
+  dots.forEach((dot, dotIndex) => {
+    const isActive = dotIndex === activeSlide;
+    dot.dataset.active = String(isActive);
+    dot.setAttribute("aria-current", String(isActive));
+  });
+
+  if (carouselStatus) {
+    carouselStatus.textContent = `${activeSlide + 1}/${slides.length}`;
+  }
+};
+
+const stopCarousel = () => {
+  if (carouselTimer) {
+    window.clearInterval(carouselTimer);
+    carouselTimer = undefined;
+  }
+};
+
+const startCarousel = () => {
+  if (slides.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  stopCarousel();
+  carouselTimer = window.setInterval(() => {
+    setActiveSlide(activeSlide + 1);
+  }, 5600);
+};
+
+dots.forEach((dot) => {
+  dot.addEventListener("click", () => {
+    const index = Number(dot.dataset.index);
+    setActiveSlide(index);
+    startCarousel();
+  });
+});
+
+if (carouselShell) {
+  carouselShell.addEventListener("mouseenter", stopCarousel);
+  carouselShell.addEventListener("mouseleave", startCarousel);
+  carouselShell.addEventListener("focusin", stopCarousel);
+  carouselShell.addEventListener("focusout", startCarousel);
+}
+
+setActiveSlide(0);
+startCarousel();
