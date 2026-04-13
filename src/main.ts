@@ -46,11 +46,6 @@ const renderLinks = (links: readonly LinkItem[]) =>
 const renderBulletList = (items: readonly string[], className = "detail-list") =>
   `<ul class="${className}">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 
-const renderProofs = (items: readonly string[]) =>
-  `<ul class="hero-proof-list">${items
-    .map((item) => `<li>${escapeHtml(item)}</li>`)
-    .join("")}</ul>`;
-
 const renderLanguageChips = (languages: string) =>
   `<ul class="language-chip-list">${languages
     .split(",")
@@ -132,7 +127,13 @@ app.innerHTML = `
           <a class="button-link primary-link" href="mailto:${escapeHtml(siteData.contact.email)}">Email me</a>
           <a class="button-link" href="${escapeHtml(siteData.contact.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
-        ${renderProofs(siteData.heroProofs)}
+        <div class="hero-callout" aria-label="Placement callout">
+          <p class="hero-callout-text">${escapeHtml(siteData.heroCallout)}</p>
+          <div class="hero-callout-arrow" aria-hidden="true">
+            <span class="hero-callout-curve"></span>
+            <span class="hero-callout-head"></span>
+          </div>
+        </div>
       </div>
       <section class="hero-media" aria-label="Placement image carousel">
         <div class="carousel-shell">

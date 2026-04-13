@@ -28,26 +28,21 @@ export const siteData = {
     email: "willliamjhanlon@icloud.com",
     github: "https://github.com/stackwill",
   },
-  heroProofs: [
-    "Year 10 placement in Dubai",
-    "offered paid remote work afterwards",
-    "homelab and self-hosted services",
-    "software, DevOps, sysadmin and AI",
-  ] as const,
+  heroCallout: "Here's my WEX in Dubai",
   carouselSlides: [
     {
       src: "/carousel-starter.jpeg",
       alt:
         "Will Hanlon working on a laptop connected to external monitors while building an event logistics interface during placement.",
       caption:
-        "I redesigned part of an internal project management system and was later offered paid remote work.",
+        "Working at Mission Global Dubai, I redesigned part of an internal project management system and was later offered paid remote work.",
     },
     {
       src: "/mission-global-image.jpeg",
       alt:
         "Will Hanlon standing with a mug in the Mission Global office in Dubai while colleagues work at nearby desks.",
       caption:
-        "I redesigned part of an internal project management system and was later offered paid remote work.",
+        "Working at Mission Global Dubai, I redesigned part of an internal project management system and was later offered paid remote work.",
     },
   ] satisfies readonly CarouselSlide[],
   placement: {
