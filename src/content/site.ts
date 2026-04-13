@@ -65,13 +65,13 @@ export const siteData = {
   ],
   delivery: [
     "I have built CI/CD workflows with GitHub Actions.",
-    "I push built Docker images to GHCR and deploy them remotely to a Proxmox VM.",
-    "I have experimented with GitOps and with k3s or k8s.",
+    "I have auto-deploying static sites to Cloudflare pages (like this site your viewing!)",
+    "I have experimented with GitOps and Kubernetes.",
   ],
   ai: [
-    "I have had a strong interest in AI since GPT-3.",
-    "I use AI development tools heavily.",
-    "I have experimented with local models and used OpenRouter.",
+    "I have had a strong interest in AI, all the way since before GPT-3.",
+    "I use AI development tools heavily, such as Claude Code and Codex",
+    "I experiment with local models and use OpenRouter for inference.",
     "I keep up with the current model landscape and understand concepts like mixture-of-experts.",
   ],
   projects: [
