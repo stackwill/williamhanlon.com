@@ -28,7 +28,6 @@ export const siteData = {
     email: "willliamjhanlon@icloud.com",
     github: "https://github.com/stackwill",
   },
-  heroCallout: "Here's my WEX in Dubai",
   carouselSlides: [
     {
       src: "/carousel-starter.jpeg",
