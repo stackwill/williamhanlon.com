@@ -38,7 +38,7 @@ export const siteData = {
       alt:
         "Will Hanlon standing with a mug in the Mission Global office in Dubai while colleagues work at nearby desks.",
       caption:
-        "Working at Mission Global Dubai, I redesigned part of an internal project management system and was later offered paid remote work.",
+        "After my work experience placement at Mission Global Dubai, I was offered paid remote work off the back of redesigning part of their internal project management system.",
       callout: {
         label: "that's me!",
         variant: "mission-global-face",
@@ -49,7 +49,7 @@ export const siteData = {
       alt:
         "Will Hanlon working on a laptop connected to external monitors while building an event logistics interface during placement.",
       caption:
-        "Working at Mission Global Dubai, I redesigned part of an internal project management system and was later offered paid remote work.",
+        "After my work experience placement at Mission Global Dubai, I was offered paid remote work off the back of redesigning part of their internal project management system.",
     },
   ] satisfies readonly CarouselSlide[],
   placement: {
@@ -62,7 +62,7 @@ export const siteData = {
     imageAlt:
       "Will Hanlon standing with a mug in the Mission Global office in Dubai while colleagues work at nearby desks.",
     caption:
-      "Year 10 placement in Dubai at Mission Global. I redesigned part of an internal project management system and was later offered paid remote work.",
+      "After my Year 10 placement at Mission Global Dubai, I was offered paid remote work off the back of redesigning part of their internal project management system.",
   },
   infrastructure: [
     "I run Proxmox VE on my own hardware at home.",
