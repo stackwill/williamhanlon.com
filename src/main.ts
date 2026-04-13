@@ -69,11 +69,6 @@ const renderCarouselSlides = (slides: readonly CarouselSlide[]) =>
             alt="${escapeHtml(slide.alt)}"
             class="carousel-image"
           />
-          <div class="carousel-overlay">
-            <p class="carousel-eyebrow">${escapeHtml(slide.eyebrow)}</p>
-            <h2 class="carousel-title">${escapeHtml(slide.title)}</h2>
-            <p class="carousel-caption">${escapeHtml(slide.caption)}</p>
-          </div>
         </article>
       `
     )
@@ -147,6 +142,7 @@ app.innerHTML = `
               <span class="carousel-status-value">1/${siteData.carouselSlides.length}</span>
             </p>
           </div>
+          <p class="carousel-caption">${escapeHtml(siteData.carouselSlides[0]?.caption ?? "")}</p>
         </div>
       </section>
     </header>
@@ -218,6 +214,7 @@ const slides = Array.from(document.querySelectorAll<HTMLElement>(".carousel-slid
 const dots = Array.from(document.querySelectorAll<HTMLButtonElement>(".carousel-dot"));
 const carouselShell = document.querySelector<HTMLElement>(".carousel-shell");
 const carouselStatus = document.querySelector<HTMLElement>(".carousel-status-value");
+const carouselCaption = document.querySelector<HTMLElement>(".carousel-caption");
 
 let activeSlide = 0;
 let carouselTimer: number | undefined;
@@ -241,6 +238,10 @@ const setActiveSlide = (index: number) => {
 
   if (carouselStatus) {
     carouselStatus.textContent = `${activeSlide + 1}/${slides.length}`;
+  }
+
+  if (carouselCaption) {
+    carouselCaption.textContent = siteData.carouselSlides[activeSlide]?.caption ?? "";
   }
 };
 

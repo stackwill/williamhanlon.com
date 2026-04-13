@@ -19,8 +19,6 @@ export type HighlightItem = {
 export type CarouselSlide = {
   readonly src: string;
   readonly alt: string;
-  readonly eyebrow: string;
-  readonly title: string;
   readonly caption: string;
 };
 
@@ -58,17 +56,13 @@ export const siteData = {
       src: "/carousel-starter.jpeg",
       alt:
         "Will Hanlon working on a laptop connected to external monitors while building an event logistics interface during placement.",
-      eyebrow: "Internal tooling",
-      title: "Redesign work in progress",
       caption:
-        "Working on an internal interface during my placement, with the Mission Global office environment visible around the setup.",
+        "I redesigned part of an internal project management system and was later offered paid remote work.",
     },
     {
       src: "/mission-global-image.jpeg",
       alt:
         "Will Hanlon standing with a mug in the Mission Global office in Dubai while colleagues work at nearby desks.",
-      eyebrow: "Mission Global",
-      title: "Year 10 placement in Dubai",
       caption:
         "I redesigned part of an internal project management system and was later offered paid remote work.",
     },
