@@ -415,7 +415,7 @@ select {
   scroll-margin-top: 2rem;
 }
 
-[data-scroll-reveal] {
+.js [data-scroll-reveal] {
   --reveal-y: 1.1rem;
   --scroll-y: 0px;
   opacity: 0.01;
@@ -425,12 +425,12 @@ select {
     transform 620ms var(--ease-out-quint);
 }
 
-[data-scroll-reveal][data-inview="true"] {
+.js [data-scroll-reveal][data-inview="true"] {
   --reveal-y: 0px;
   opacity: 1;
 }
 
-.hero-media[data-scroll-reveal] {
+.js .hero-media[data-scroll-reveal] {
   transform: translate3d(0, calc(var(--reveal-y) + var(--scroll-y)), 0) scale(var(--scroll-media-scale, 1));
 }
 
