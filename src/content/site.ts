@@ -17,7 +17,7 @@ export const siteData = {
   context: "16-year-old GCSE student",
   intro:
     "I'm interested in software, datacenter infrastructure, Linux systems and AI.",
-  availability: "Looking for internships and junior opportunities.",
+  availability: "Looking for internships or junior opportunities.",
   contact: {
     email: "willliamjhanlon@icloud.com",
     github: "https://github.com/stackwill",
