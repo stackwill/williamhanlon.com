@@ -191,6 +191,16 @@ select {
   transform: translateY(-1px);
 }
 
+.github-link {
+  min-width: 2.9rem;
+}
+
+.github-logo {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+}
+
 .button-link:focus-visible,
 .inline-link:focus-visible,
 .carousel-dot:focus-visible {
