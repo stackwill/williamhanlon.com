@@ -1,4 +1,5 @@
 import "./styles.css";
+import { siteData } from "./content/site";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 
@@ -8,7 +9,8 @@ if (!app) {
 
 app.innerHTML = `
   <main class="bootstrap-shell">
-    <h1>William Hanlon</h1>
-    <p>Portfolio site bootstrap complete.</p>
+    <h1>${siteData.name}</h1>
+    <p>${siteData.intro}</p>
+    <p>${siteData.placement.caption}</p>
   </main>
 `;
