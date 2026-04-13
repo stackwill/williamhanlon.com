@@ -74,7 +74,7 @@ export const siteData = {
   ],
   delivery: [
     "I have built CI/CD workflows with GitHub Actions.",
-    "I have auto-deploying static sites to Cloudflare pages (like this site your viewing!)",
+    "I have built auto-deploying static sites to Cloudflare pages (like this site you're viewing!)",
     "I have experimented with GitOps and Kubernetes.",
   ],
   ai: [
