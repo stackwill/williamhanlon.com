@@ -145,7 +145,7 @@ const renderProjects = (projects: readonly ProjectItem[]) =>
   projects
     .map(
       (project) => `
-        <article class="project-item">
+        <article class="project-item" data-scroll-reveal>
           <div class="project-meta">
             <p class="project-kicker">${escapeHtml(project.type)}</p>
             <h3>${escapeHtml(project.name)}</h3>
@@ -162,8 +162,8 @@ const renderProjects = (projects: readonly ProjectItem[]) =>
 
 app.innerHTML = `
   <main class="page-shell">
-    <header class="hero">
-      <div class="hero-copy">
+    <header class="hero" data-scroll-progress>
+      <div class="hero-copy" data-scroll-reveal>
         <p class="eyebrow">Portfolio</p>
         <h1>${escapeHtml(siteData.name)}</h1>
         <p class="hero-context">
@@ -182,7 +182,7 @@ app.innerHTML = `
           ${renderHeroTechnologies(heroTechnologies)}
         </div>
       </div>
-      <section class="hero-media" aria-label="Placement image carousel">
+      <section class="hero-media" aria-label="Placement image carousel" data-scroll-reveal>
         <div class="carousel-shell">
           <div class="carousel-viewport">
             ${renderCarouselSlides(siteData.carouselSlides)}
@@ -204,7 +204,7 @@ app.innerHTML = `
     </header>
 
     <section class="overview-grid" id="overview" aria-label="Core experience summary">
-      <article class="info-panel">
+      <article class="info-panel" data-scroll-reveal>
         <div class="section-heading compact">
           <p class="eyebrow">${escapeHtml(siteData.placement.eyebrow)}</p>
           <h2>${escapeHtml(siteData.placement.company)}</h2>
@@ -213,7 +213,7 @@ app.innerHTML = `
         <p class="panel-copy">${escapeHtml(siteData.placement.caption)}</p>
       </article>
 
-      <article class="info-panel">
+      <article class="info-panel" data-scroll-reveal>
         <div class="section-heading compact">
           <p class="eyebrow">Systems</p>
           <h2 id="infrastructure-heading">Infrastructure</h2>
@@ -221,7 +221,7 @@ app.innerHTML = `
         ${renderBulletList(siteData.infrastructure.slice(0, 4), "panel-list")}
       </article>
 
-      <article class="info-panel">
+      <article class="info-panel" data-scroll-reveal>
         <div class="section-heading compact">
           <p class="eyebrow">Delivery</p>
           <h2 id="delivery-heading">Deployment and ops</h2>
@@ -229,7 +229,7 @@ app.innerHTML = `
         ${renderBulletList(siteData.delivery, "panel-list")}
       </article>
 
-      <article class="info-panel">
+      <article class="info-panel" data-scroll-reveal>
         <div class="section-heading compact">
           <p class="eyebrow">Direction</p>
           <h2 id="ai-heading">Current interests</h2>
@@ -238,8 +238,8 @@ app.innerHTML = `
       </article>
     </section>
 
-    <section class="section-block" aria-labelledby="projects-heading">
-      <div class="section-heading section-header">
+    <section class="section-block sticky-section" aria-labelledby="projects-heading" data-scroll-progress>
+      <div class="section-heading section-header sticky-heading" data-scroll-reveal>
         <p class="eyebrow">Projects</p>
         <h2 id="projects-heading">Selected work</h2>
         <p class="section-note">Compact, strongest-first, with GitHub as supporting proof.</p>
@@ -249,13 +249,13 @@ app.innerHTML = `
       </div>
     </section>
 
-    <section class="section-block contact-section" aria-labelledby="contact-heading">
-      <div class="section-heading section-header">
+    <section class="section-block contact-section sticky-section" aria-labelledby="contact-heading" data-scroll-progress>
+      <div class="section-heading section-header sticky-heading" data-scroll-reveal>
         <p class="eyebrow">Contact</p>
         <h2 id="contact-heading">Get in touch</h2>
         <p class="section-note">Best first step: email me directly.</p>
       </div>
-      <div class="contact-grid">
+      <div class="contact-grid" data-scroll-reveal>
         <p class="contact-copy">If you'd like to talk about internships, junior roles, software, DevOps, sysadmin work, infrastructure or AI, email me.</p>
         <div class="hero-actions">
           <a class="button-link primary-link" href="mailto:${escapeHtml(siteData.contact.email)}">${escapeHtml(siteData.contact.email)}</a>
@@ -343,3 +343,77 @@ const updateScrollCue = () => {
 
 updateScrollCue();
 window.addEventListener("scroll", updateScrollCue, { passive: true });
+
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const scrollProgressTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-progress]"));
+const scrollRevealTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-reveal]"));
+let scrollEffectFrame: number | undefined;
+
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+
+const setStaticScrollState = () => {
+  scrollProgressTargets.forEach((target) => {
+    target.style.setProperty("--scroll-progress", "0");
+    target.style.setProperty("--scroll-copy-y", "0px");
+    target.style.setProperty("--scroll-media-y", "0px");
+    target.style.setProperty("--scroll-media-scale", "1");
+    target.style.setProperty("--scroll-section-y", "0px");
+  });
+
+  scrollRevealTargets.forEach((target) => {
+    target.dataset.inview = "true";
+  });
+};
+
+const updateScrollEffects = () => {
+  scrollEffectFrame = undefined;
+
+  if (reducedMotionQuery.matches) {
+    setStaticScrollState();
+    return;
+  }
+
+  const viewportHeight = window.innerHeight || 1;
+
+  scrollProgressTargets.forEach((target) => {
+    const rect = target.getBoundingClientRect();
+    const travel = Math.max(rect.height - viewportHeight * 0.6, viewportHeight * 0.8);
+    const progress = clamp(-rect.top / travel, 0, 1);
+    const lead = clamp((progress - 0.08) / 0.82, 0, 1);
+
+    target.style.setProperty("--scroll-progress", progress.toFixed(3));
+    target.style.setProperty("--scroll-copy-y", `${(-22 * lead).toFixed(1)}px`);
+    target.style.setProperty("--scroll-media-y", `${(34 * lead).toFixed(1)}px`);
+    target.style.setProperty("--scroll-media-scale", (1 - lead * 0.035).toFixed(3));
+    target.style.setProperty("--scroll-section-y", `${(-16 * lead).toFixed(1)}px`);
+  });
+
+  scrollRevealTargets.forEach((target) => {
+    const rect = target.getBoundingClientRect();
+    const shouldShow = rect.top < viewportHeight * 0.82 && rect.bottom > viewportHeight * -0.2;
+    target.dataset.inview = String(shouldShow);
+  });
+};
+
+const requestScrollEffects = () => {
+  if (scrollEffectFrame !== undefined) {
+    return;
+  }
+
+  scrollEffectFrame = window.requestAnimationFrame(updateScrollEffects);
+};
+
+const handleMotionPreferenceChange = () => {
+  requestScrollEffects();
+
+  if (reducedMotionQuery.matches) {
+    stopCarousel();
+  } else {
+    startCarousel();
+  }
+};
+
+updateScrollEffects();
+window.addEventListener("scroll", requestScrollEffects, { passive: true });
+window.addEventListener("resize", requestScrollEffects);
+reducedMotionQuery.addEventListener("change", handleMotionPreferenceChange);

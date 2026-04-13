@@ -12,6 +12,7 @@
   --gutter: clamp(1rem, 3vw, 2rem);
   --radius: 1.1rem;
   --shadow: 0 18px 50px rgba(24, 20, 14, 0.08);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 *,
@@ -220,7 +221,9 @@ select {
 }
 
 .hero-media {
+  --scroll-y: var(--scroll-media-y, 0px);
   min-width: 0;
+  transform: translate3d(0, calc(var(--reveal-y, 0px) + var(--scroll-y)), 0) scale(var(--scroll-media-scale, 1));
 }
 
 .carousel-shell {
@@ -368,6 +371,25 @@ select {
   scroll-margin-top: 2rem;
 }
 
+[data-scroll-reveal] {
+  --reveal-y: 1.1rem;
+  --scroll-y: 0px;
+  opacity: 0.01;
+  transform: translate3d(0, calc(var(--reveal-y) + var(--scroll-y)), 0);
+  transition:
+    opacity 520ms var(--ease-out-quint),
+    transform 620ms var(--ease-out-quint);
+}
+
+[data-scroll-reveal][data-inview="true"] {
+  --reveal-y: 0px;
+  opacity: 1;
+}
+
+.hero-media[data-scroll-reveal] {
+  transform: translate3d(0, calc(var(--reveal-y) + var(--scroll-y)), 0) scale(var(--scroll-media-scale, 1));
+}
+
 .info-panel,
 .section-block {
   border-top: 1px solid var(--rule);
@@ -413,6 +435,10 @@ select {
 .section-block {
   padding-top: 2rem;
   margin-top: 2rem;
+}
+
+.sticky-heading {
+  --scroll-y: var(--scroll-section-y, 0px);
 }
 
 .section-header {
@@ -489,9 +515,49 @@ select {
     grid-template-columns: minmax(0, 0.94fr) minmax(22rem, 0.9fr);
   }
 
+  .hero[data-scroll-progress] {
+    min-height: 142svh;
+  }
+
+  .hero-copy,
+  .hero-media {
+    position: sticky;
+    top: clamp(1rem, 3.5vh, 2.5rem);
+  }
+
+  .hero-copy {
+    --scroll-y: var(--scroll-copy-y, 0px);
+  }
+
+  .hero-media {
+    top: clamp(1rem, 4vh, 3rem);
+  }
+
   .overview-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 1.9rem;
+  }
+
+  .sticky-section {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.38fr) minmax(0, 1fr);
+    gap: 1.6rem 2.5rem;
+    align-items: start;
+  }
+
+  .sticky-section .sticky-heading {
+    position: sticky;
+    top: clamp(1.25rem, 5vh, 3rem);
+    margin-bottom: 0;
+  }
+
+  .sticky-section .project-list,
+  .sticky-section .contact-grid {
+    grid-column: 2;
+  }
+
+  .sticky-section .project-list {
+    margin-top: 0.15rem;
   }
 
   .project-item {
@@ -503,6 +569,10 @@ select {
   .contact-grid {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
+  }
+
+  .contact-section.sticky-section {
+    min-height: 58svh;
   }
 }
 
@@ -544,5 +614,11 @@ select {
 
   .scroll-cue {
     animation: none;
+  }
+
+  [data-scroll-reveal],
+  .hero-media {
+    opacity: 1;
+    transform: none;
   }
 }
