@@ -159,6 +159,11 @@ h3 {
   letter-spacing: -0.03em;
 }
 
+.section-note {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
 .featured-placement {
   display: grid;
   gap: 1.5rem;
@@ -265,6 +270,30 @@ h3 {
 .contact-section p {
   max-width: 40rem;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 32rem) {
+  .page-shell {
+    width: min(100% - 1.25rem, var(--max-width));
+    padding-bottom: 4rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .button-link {
+    width: 100%;
+  }
+
+  .project-facts div {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .placement-image {
+    aspect-ratio: 4 / 3;
+  }
 }
 
 @media (min-width: 48rem) {

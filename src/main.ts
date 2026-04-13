@@ -66,6 +66,7 @@ app.innerHTML = `
       <div class="section-heading">
         <p class="eyebrow">${siteData.placement.eyebrow}</p>
         <h2 id="placement-heading">${siteData.placement.company}</h2>
+        <p class="section-note">${siteData.placement.location}</p>
       </div>
       <figure class="placement-media">
         <img
