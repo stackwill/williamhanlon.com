@@ -1,17 +1,273 @@
 :root {
   color-scheme: light;
+  --bg: #f3f1eb;
+  --surface: #faf8f2;
+  --text: #161616;
+  --muted: #5f5a52;
+  --rule: #d7d1c8;
+  --accent: #242424;
+  --max-width: 72rem;
+  --gutter: clamp(1rem, 3vw, 2rem);
+  --section-gap: clamp(3rem, 8vw, 6rem);
+  --radius: 0.75rem;
 }
 
-html,
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  min-height: 100%;
-}
-
-body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.55;
 }
 
-.bootstrap-shell {
-  padding: 2rem;
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+p,
+ul,
+dl,
+figure,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+.page-shell {
+  width: min(100% - (var(--gutter) * 2), var(--max-width));
+  margin: 0 auto;
+  padding: clamp(1.25rem, 3vw, 2rem) 0 5rem;
+}
+
+.section {
+  padding: var(--section-gap) 0;
+  border-top: 1px solid var(--rule);
+}
+
+.section:first-child {
+  border-top: 0;
+  padding-top: 1rem;
+}
+
+.hero {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.hero-copy {
+  max-width: 44rem;
+}
+
+.eyebrow {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 8vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.hero-context,
+.hero-availability {
+  color: var(--muted);
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+}
+
+.hero-intro {
+  font-size: clamp(1.2rem, 3vw, 1.65rem);
+  max-width: 38rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.875rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.button-link:hover,
+.button-link:focus-visible {
+  background: #ebe6dc;
+  border-color: #c2baad;
+  outline: none;
+}
+
+.primary-link {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #f7f3ea;
+}
+
+.primary-link:hover,
+.primary-link:focus-visible {
+  background: #353535;
+  border-color: #353535;
+}
+
+.section-heading {
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-heading h2 {
+  font-size: clamp(1.45rem, 4vw, 2.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.featured-placement {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.placement-media {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.placement-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}
+
+.placement-media figcaption {
+  max-width: 48rem;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.detail-list {
+  display: grid;
+  gap: 0.9rem;
+  padding-left: 1.2rem;
+  max-width: 54rem;
+}
+
+.detail-list li {
+  padding-left: 0.2rem;
+}
+
+.projects-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.project-item {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.project-item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.project-meta h3 {
+  font-size: 1.2rem;
+  line-height: 1.05;
+}
+
+.project-body {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 48rem;
+}
+
+.project-facts {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.project-facts div {
+  display: grid;
+  grid-template-columns: minmax(5rem, 6.5rem) 1fr;
+  gap: 0.75rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--rule);
+}
+
+.project-facts dt {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.inline-link {
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.inline-link:hover,
+.inline-link:focus-visible {
+  color: var(--muted);
+  outline: none;
+}
+
+.contact-section p {
+  max-width: 40rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 48rem) {
+  .featured-placement {
+    grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .projects-grid {
+    gap: 1.5rem;
+  }
+
+  .project-item {
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    gap: 1.5rem;
+  }
 }
