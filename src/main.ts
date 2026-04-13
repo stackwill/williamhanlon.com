@@ -30,6 +30,14 @@ const escapeHtml = (value: string) =>
     }
   });
 
+const renderMissionGlobalText = (value: string) => {
+  const company = escapeHtml(siteData.placement.company);
+  const website = escapeHtml(siteData.placement.website);
+  const companyLink = `<a class="inline-link" href="${website}" target="_blank" rel="noopener noreferrer">${company}</a>`;
+
+  return escapeHtml(value).split(company).join(companyLink);
+};
+
 const renderLinks = (links: readonly LinkItem[]) =>
   `<ul class="project-links">${links
     .map(
@@ -195,7 +203,7 @@ app.innerHTML = `
               <span class="carousel-status-value">1/${siteData.carouselSlides.length}</span>
             </p>
           </div>
-          <p class="carousel-caption">${escapeHtml(siteData.carouselSlides[0]?.caption ?? "")}</p>
+          <p class="carousel-caption">${renderMissionGlobalText(siteData.carouselSlides[0]?.caption ?? "")}</p>
         </div>
       </section>
       <a class="scroll-cue" href="#overview" aria-label="Scroll to experience summary">
@@ -207,10 +215,10 @@ app.innerHTML = `
       <article class="info-panel" data-scroll-reveal>
         <div class="section-heading compact">
           <p class="eyebrow">${escapeHtml(siteData.placement.eyebrow)}</p>
-          <h2>${escapeHtml(siteData.placement.company)}</h2>
+          <h2>${renderMissionGlobalText(siteData.placement.company)}</h2>
           <p class="section-note">${escapeHtml(siteData.placement.location)}</p>
         </div>
-        <p class="panel-copy">${escapeHtml(siteData.placement.caption)}</p>
+        <p class="panel-copy">${renderMissionGlobalText(siteData.placement.caption)}</p>
       </article>
 
       <article class="info-panel" data-scroll-reveal>
@@ -297,7 +305,7 @@ const setActiveSlide = (index: number) => {
   }
 
   if (carouselCaption) {
-    carouselCaption.textContent = siteData.carouselSlides[activeSlide]?.caption ?? "";
+    carouselCaption.innerHTML = renderMissionGlobalText(siteData.carouselSlides[activeSlide]?.caption ?? "");
   }
 };
 

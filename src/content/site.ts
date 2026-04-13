@@ -22,7 +22,7 @@ export const siteData = {
   location: "Ely, UK",
   context: "16-year-old GCSE student",
   intro:
-    "I'm interested in software, infrastructure, Linux systems and AI.",
+    "I build and experiment with software, infrastructure, Linux systems and AI.",
   availability: "Looking for internships or junior opportunities.",
   contact: {
     email: "willliamjhanlon@icloud.com",
@@ -47,6 +47,7 @@ export const siteData = {
   placement: {
     eyebrow: "Year 10 placement",
     company: "Mission Global",
+    website: "https://mission-global.com",
     location: "Dubai",
     imageSrc: "/mission-global-image.jpeg",
     imageAlt:
