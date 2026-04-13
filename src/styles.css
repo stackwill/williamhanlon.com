@@ -71,8 +71,6 @@ select {
 }
 
 .eyebrow,
-.carousel-eyebrow,
-.highlight-label,
 .project-kicker {
   color: var(--muted);
   font-size: 0.76rem;
@@ -188,27 +186,26 @@ select {
   border-color: #343434;
 }
 
-.highlight-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem;
-  margin-top: 0.7rem;
+.hero-proof-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.75rem;
+  padding: 0;
+  margin-top: 0.35rem;
+  list-style: none;
 }
 
-.highlight-item {
-  display: grid;
-  gap: 0.28rem;
-  min-height: 4.65rem;
-  padding: 1rem 1rem;
+.hero-proof-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.38rem 0.7rem;
   border: 1px solid var(--rule);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.34);
-}
-
-.highlight-value {
-  max-width: 18ch;
-  font-size: 1rem;
-  line-height: 1.12;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.32);
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.15;
 }
 
 .hero-media {
@@ -295,7 +292,7 @@ select {
 .overview-grid,
 .contact-grid {
   display: grid;
-  gap: 1.15rem;
+  gap: 1.45rem;
 }
 
 .overview-grid {
@@ -309,8 +306,8 @@ select {
 
 .info-panel {
   display: grid;
-  gap: 1rem;
-  padding-top: 1.15rem;
+  gap: 1.15rem;
+  padding-top: 1.35rem;
 }
 
 .section-heading {
@@ -336,7 +333,7 @@ select {
 
 .panel-list {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.72rem;
   padding-left: 1.1rem;
 }
 
@@ -345,23 +342,23 @@ select {
 }
 
 .section-block {
-  padding-top: 1.65rem;
-  margin-top: 1.65rem;
+  padding-top: 2rem;
+  margin-top: 2rem;
 }
 
 .section-header {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.45rem;
 }
 
 .project-list {
   display: grid;
-  gap: 0.95rem;
+  gap: 1.2rem;
 }
 
 .project-item {
   display: grid;
-  gap: 0.85rem;
-  padding: 1rem 0;
+  gap: 1rem;
+  padding: 1.2rem 0;
   border-top: 1px solid var(--rule);
 }
 
@@ -378,7 +375,7 @@ select {
 
 .project-body {
   display: grid;
-  gap: 0.4rem;
+  gap: 0.58rem;
   max-width: 56ch;
 }
 
@@ -405,8 +402,8 @@ select {
 }
 
 .contact-section {
-  margin-top: 2rem;
-  padding-bottom: 1.4rem;
+  margin-top: 2.4rem;
+  padding-bottom: 1.8rem;
 }
 
 @media (min-width: 50rem) {
@@ -416,13 +413,13 @@ select {
 
   .overview-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 1.6rem;
+    column-gap: 1.9rem;
   }
 
   .project-item {
     grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
     align-items: start;
-    gap: 1.15rem 1.55rem;
+    gap: 1.3rem 1.8rem;
   }
 
   .contact-grid {
@@ -444,8 +441,9 @@ select {
     width: 100%;
   }
 
-  .highlight-grid {
-    grid-template-columns: 1fr;
+  .hero-proof-list {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .carousel-viewport {

@@ -2,7 +2,6 @@ import "./styles.css";
 import {
   siteData,
   type CarouselSlide,
-  type HighlightItem,
   type LinkItem,
   type ProjectItem,
 } from "./content/site";
@@ -47,17 +46,10 @@ const renderLinks = (links: readonly LinkItem[]) =>
 const renderBulletList = (items: readonly string[], className = "detail-list") =>
   `<ul class="${className}">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 
-const renderHighlights = (items: readonly HighlightItem[]) =>
-  items
-    .map(
-      (item) => `
-        <article class="highlight-item">
-          <p class="highlight-label">${escapeHtml(item.label)}</p>
-          <p class="highlight-value">${escapeHtml(item.value)}</p>
-        </article>
-      `
-    )
-    .join("");
+const renderProofs = (items: readonly string[]) =>
+  `<ul class="hero-proof-list">${items
+    .map((item) => `<li class="hero-proof-item">${escapeHtml(item)}</li>`)
+    .join("")}</ul>`;
 
 const renderCarouselSlides = (slides: readonly CarouselSlide[]) =>
   slides
@@ -125,9 +117,7 @@ app.innerHTML = `
           <a class="button-link primary-link" href="mailto:${escapeHtml(siteData.contact.email)}">Email me</a>
           <a class="button-link" href="${escapeHtml(siteData.contact.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
-        <section class="highlight-grid" aria-label="Top evidence">
-          ${renderHighlights(siteData.heroHighlights)}
-        </section>
+        ${renderProofs(siteData.heroProofs)}
       </div>
       <section class="hero-media" aria-label="Placement image carousel">
         <div class="carousel-shell">

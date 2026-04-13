@@ -11,11 +11,6 @@ export type ProjectItem = {
   readonly links: readonly LinkItem[];
 };
 
-export type HighlightItem = {
-  readonly label: string;
-  readonly value: string;
-};
-
 export type CarouselSlide = {
   readonly src: string;
   readonly alt: string;
@@ -33,24 +28,12 @@ export const siteData = {
     email: "willliamjhanlon@icloud.com",
     github: "https://github.com/stackwill",
   },
-  heroHighlights: [
-    {
-      label: "Placement",
-      value: "Year 10 placement in Dubai",
-    },
-    {
-      label: "Outcome",
-      value: "Offered paid remote work afterwards",
-    },
-    {
-      label: "Systems",
-      value: "Homelab and self-hosted services",
-    },
-    {
-      label: "Focus",
-      value: "Software, DevOps, sysadmin and AI",
-    },
-  ] satisfies readonly HighlightItem[],
+  heroProofs: [
+    "Year 10 placement in Dubai",
+    "offered paid remote work afterwards",
+    "homelab and self-hosted services",
+    "software, DevOps, sysadmin and AI",
+  ] as const,
   carouselSlides: [
     {
       src: "/carousel-starter.jpeg",
