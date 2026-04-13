@@ -123,11 +123,16 @@ h3 {
   transition: background-color 160ms ease, border-color 160ms ease;
 }
 
-.button-link:hover,
+.button-link:hover {
+  background: #ebe6dc;
+  border-color: #c2baad;
+}
+
 .button-link:focus-visible {
   background: #ebe6dc;
   border-color: #c2baad;
-  outline: none;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .primary-link {
@@ -250,7 +255,11 @@ h3 {
 .inline-link:hover,
 .inline-link:focus-visible {
   color: var(--muted);
-  outline: none;
+}
+
+.inline-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .contact-section p {
