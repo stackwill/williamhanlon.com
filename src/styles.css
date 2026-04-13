@@ -189,23 +189,25 @@ select {
 .hero-proof-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem 0.75rem;
+  gap: 0.45rem 1rem;
   padding: 0;
   margin-top: 0.35rem;
   list-style: none;
-}
-
-.hero-proof-item {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.25rem;
-  padding: 0.38rem 0.7rem;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.32);
   color: var(--muted);
   font-size: 0.93rem;
-  line-height: 1.15;
+  line-height: 1.35;
+}
+
+.hero-proof-list li {
+  position: relative;
+  padding-right: 1rem;
+}
+
+.hero-proof-list li:not(:last-child)::after {
+  content: "/";
+  position: absolute;
+  right: 0;
+  color: #9a9184;
 }
 
 .hero-media {
@@ -379,9 +381,53 @@ select {
   max-width: 56ch;
 }
 
-.project-languages {
-  color: var(--muted);
-  font-size: 0.94rem;
+.language-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding: 0;
+  list-style: none;
+}
+
+.language-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.9rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.language-chip[data-language="python"] {
+  background: #ffe39b;
+  color: #4e3c00;
+}
+
+.language-chip[data-language="rust"] {
+  background: #f2c6a5;
+  color: #5c2502;
+}
+
+.language-chip[data-language="lua"] {
+  background: #cad4ff;
+  color: #253a8f;
+}
+
+.language-chip[data-language="typescript"] {
+  background: #c6dfff;
+  color: #0d4f96;
+}
+
+.language-chip[data-language="go"] {
+  background: #bfeef3;
+  color: #085e6a;
+}
+
+.language-chip:not([data-language="python"]):not([data-language="rust"]):not([data-language="lua"]):not([data-language="typescript"]):not([data-language="go"]) {
+  background: #ddd5c8;
+  color: #3d362d;
 }
 
 .project-links {
@@ -442,8 +488,16 @@ select {
   }
 
   .hero-proof-list {
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .hero-proof-list li {
+    padding-right: 0;
+  }
+
+  .hero-proof-list li::after {
+    display: none;
   }
 
   .carousel-viewport {

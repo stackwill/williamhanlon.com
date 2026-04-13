@@ -48,7 +48,22 @@ const renderBulletList = (items: readonly string[], className = "detail-list") =
 
 const renderProofs = (items: readonly string[]) =>
   `<ul class="hero-proof-list">${items
-    .map((item) => `<li class="hero-proof-item">${escapeHtml(item)}</li>`)
+    .map((item) => `<li>${escapeHtml(item)}</li>`)
+    .join("")}</ul>`;
+
+const renderLanguageChips = (languages: string) =>
+  `<ul class="language-chip-list">${languages
+    .split(",")
+    .map((language) => language.trim())
+    .filter(Boolean)
+    .map((language) => {
+      const slug = language.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      return `
+        <li>
+          <span class="language-chip" data-language="${escapeHtml(slug)}">${escapeHtml(language)}</span>
+        </li>
+      `;
+    })
     .join("")}</ul>`;
 
 const renderCarouselSlides = (slides: readonly CarouselSlide[]) =>
@@ -91,7 +106,7 @@ const renderProjects = (projects: readonly ProjectItem[]) =>
             <h3>${escapeHtml(project.name)}</h3>
           </div>
           <div class="project-body">
-            <p class="project-languages">${escapeHtml(project.languages)}</p>
+            ${renderLanguageChips(project.languages)}
             <p>${escapeHtml(project.description)}</p>
             ${renderLinks(project.links)}
           </div>
