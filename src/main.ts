@@ -38,6 +38,17 @@ const renderMissionGlobalText = (value: string) => {
   return escapeHtml(value).split(company).join(companyLink);
 };
 
+const renderMissionGlobalDisplayText = () => {
+  const company = escapeHtml(siteData.placement.company);
+  const displayCompany = escapeHtml(siteData.placement.displayCompany);
+  const website = escapeHtml(siteData.placement.website);
+
+  return displayCompany.replace(
+    company,
+    `<a class="inline-link" href="${website}" target="_blank" rel="noopener noreferrer">${company}</a>`
+  );
+};
+
 const renderLinks = (links: readonly LinkItem[]) =>
   `<ul class="project-links">${links
     .map(
@@ -129,6 +140,16 @@ const renderCarouselSlides = (slides: readonly CarouselSlide[]) =>
             alt="${escapeHtml(slide.alt)}"
             class="carousel-image"
           />
+          ${
+            slide.callout
+              ? `
+                <div class="carousel-callout" data-variant="${escapeHtml(slide.callout.variant)}" aria-hidden="true">
+                  <span class="carousel-callout-ring"></span>
+                  <span class="carousel-callout-text">${escapeHtml(slide.callout.label)}</span>
+                </div>
+              `
+              : ""
+          }
         </article>
       `
     )
@@ -215,8 +236,7 @@ app.innerHTML = `
       <article class="info-panel" data-scroll-reveal>
         <div class="section-heading compact">
           <p class="eyebrow">${escapeHtml(siteData.placement.eyebrow)}</p>
-          <h2>${renderMissionGlobalText(siteData.placement.company)}</h2>
-          <p class="section-note">${escapeHtml(siteData.placement.location)}</p>
+          <h2>${renderMissionGlobalDisplayText()}</h2>
         </div>
         <p class="panel-copy">${renderMissionGlobalText(siteData.placement.caption)}</p>
       </article>
@@ -226,7 +246,7 @@ app.innerHTML = `
           <p class="eyebrow">Systems</p>
           <h2 id="infrastructure-heading">Infrastructure</h2>
         </div>
-        ${renderBulletList(siteData.infrastructure.slice(0, 4), "panel-list")}
+        ${renderBulletList(siteData.infrastructure.slice(0, 5), "panel-list")}
       </article>
 
       <article class="info-panel" data-scroll-reveal>
