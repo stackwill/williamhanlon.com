@@ -22,7 +22,7 @@ export const siteData = {
   location: "Ely, UK",
   context: "16-year-old GCSE student",
   intro:
-    "I'm interested in software, datacenter infrastructure, Linux systems and AI.",
+    "I'm interested in software, infrastructure, Linux systems and AI.",
   availability: "Looking for internships or junior opportunities.",
   contact: {
     email: "willliamjhanlon@icloud.com",

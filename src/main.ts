@@ -46,19 +46,60 @@ const renderLinks = (links: readonly LinkItem[]) =>
 const renderBulletList = (items: readonly string[], className = "detail-list") =>
   `<ul class="${className}">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 
-const renderLanguageChips = (languages: string) =>
-  `<ul class="language-chip-list">${languages
+const languageBadgeStyles: Record<string, { readonly color: string; readonly logo: string; readonly logoColor: string }> = {
+  ansible: { color: "EE0000", logo: "ansible", logoColor: "white" },
+  docker: { color: "2496ED", logo: "docker", logoColor: "white" },
+  githubactions: { color: "2088FF", logo: "githubactions", logoColor: "white" },
+  go: { color: "00ADD8", logo: "go", logoColor: "white" },
+  linux: { color: "FCC624", logo: "linux", logoColor: "171717" },
+  lua: { color: "2C2D72", logo: "lua", logoColor: "white" },
+  nodedotjs: { color: "5FA04E", logo: "nodedotjs", logoColor: "white" },
+  proxmox: { color: "E57000", logo: "proxmox", logoColor: "white" },
+  python: { color: "3776AB", logo: "python", logoColor: "white" },
+  rust: { color: "CE422B", logo: "rust", logoColor: "white" },
+  typescript: { color: "3178C6", logo: "typescript", logoColor: "white" },
+};
+
+const heroTechnologies = ["Linux", "Proxmox", "Docker", "Rust", "Python", "TypeScript", "Node.js", "GitHub Actions", "Ansible"];
+
+const getBadgeStyle = (label: string) => {
+  const slug = label.toLowerCase().replace(/\./g, "dot").replace(/[^a-z0-9]+/g, "");
+  return {
+    badge: languageBadgeStyles[slug] ?? {
+      color: "655F58",
+      logo: "code",
+      logoColor: "white",
+    },
+    slug,
+  };
+};
+
+const renderBadgeImage = (label: string, className: string) => {
+  const { badge } = getBadgeStyle(label);
+  const src = `https://img.shields.io/badge/${encodeURIComponent(label)}-${badge.color}?style=flat-square&logo=${encodeURIComponent(badge.logo)}&logoColor=${encodeURIComponent(badge.logoColor)}`;
+
+  return `
+    <img
+      class="${className}"
+      src="${escapeHtml(src)}"
+      alt="${escapeHtml(label)}"
+      loading="lazy"
+      decoding="async"
+    />
+  `;
+};
+
+const renderLanguageBadges = (languages: string) =>
+  `<ul class="language-badge-list">${languages
     .split(",")
     .map((language) => language.trim())
     .filter(Boolean)
-    .map((language) => {
-      const slug = language.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-      return `
-        <li>
-          <span class="language-chip" data-language="${escapeHtml(slug)}">${escapeHtml(language)}</span>
-        </li>
-      `;
-    })
+    .map((language) => `<li>${renderBadgeImage(language, "language-badge")}</li>`)
+    .join("")}</ul>`;
+
+const renderHeroTechnologies = (technologies: readonly string[]) =>
+  `<ul class="tech-badge-list">${technologies
+    .map((technology) => `<li>${renderBadgeImage(technology, "tech-badge")}</li>`)
     .join("")}</ul>`;
 
 const renderCarouselSlides = (slides: readonly CarouselSlide[]) =>
@@ -101,7 +142,7 @@ const renderProjects = (projects: readonly ProjectItem[]) =>
             <h3>${escapeHtml(project.name)}</h3>
           </div>
           <div class="project-body">
-            ${renderLanguageChips(project.languages)}
+            ${renderLanguageBadges(project.languages)}
             <p>${escapeHtml(project.description)}</p>
             ${renderLinks(project.links)}
           </div>
@@ -127,6 +168,10 @@ app.innerHTML = `
           <a class="button-link primary-link" href="mailto:${escapeHtml(siteData.contact.email)}">Email me</a>
           <a class="button-link" href="${escapeHtml(siteData.contact.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
+        <div class="hero-tech" aria-label="Technologies I use or am interested in">
+          <p class="eyebrow">Technologies</p>
+          ${renderHeroTechnologies(heroTechnologies)}
+        </div>
       </div>
       <section class="hero-media" aria-label="Placement image carousel">
         <div class="carousel-shell">
@@ -144,9 +189,12 @@ app.innerHTML = `
           <p class="carousel-caption">${escapeHtml(siteData.carouselSlides[0]?.caption ?? "")}</p>
         </div>
       </section>
+      <a class="scroll-cue" href="#overview" aria-label="Scroll to experience summary">
+        <span class="scroll-cue-arrow" aria-hidden="true"></span>
+      </a>
     </header>
 
-    <section class="overview-grid" aria-label="Core experience summary">
+    <section class="overview-grid" id="overview" aria-label="Core experience summary">
       <article class="info-panel">
         <div class="section-heading compact">
           <p class="eyebrow">${escapeHtml(siteData.placement.eyebrow)}</p>
@@ -279,3 +327,10 @@ if (carouselShell) {
 
 setActiveSlide(0);
 startCarousel();
+
+const updateScrollCue = () => {
+  document.documentElement.dataset.scrolled = String(window.scrollY > 8);
+};
+
+updateScrollCue();
+window.addEventListener("scroll", updateScrollCue, { passive: true });
