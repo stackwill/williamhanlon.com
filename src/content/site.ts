@@ -28,11 +28,9 @@ export const siteData = {
     location: "Dubai",
     imageSrc: "/mission-global-image.jpeg",
     imageAlt:
-      "Mission Global Year 10 work experience placement image used as the main portfolio visual.",
+      "Will Hanlon standing with a mug in the Mission Global office in Dubai while colleagues work at nearby desks.",
     caption:
       "Year 10 placement in Dubai at Mission Global. I redesigned part of an internal project management system and was later offered paid remote work.",
-    summary:
-      "This is the strongest proof point on the site and should sit directly under the intro.",
   },
   infrastructure: [
     "I run Proxmox VE on my own hardware at home.",

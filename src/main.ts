@@ -7,16 +7,34 @@ if (!app) {
   throw new Error("App root not found");
 }
 
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (character) => {
+    switch (character) {
+      case "&":
+        return "&amp;";
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case '"':
+        return "&quot;";
+      case "'":
+        return "&#39;";
+      default:
+        return character;
+    }
+  });
+
 const renderLinks = (links: readonly LinkItem[]) =>
   links
     .map(
       (link) =>
-        `<a class="inline-link" href="${link.href}" target="_blank" rel="noopener noreferrer">${link.label}</a>`
+        `<a class="inline-link" href="${escapeHtml(link.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`
     )
     .join('<span aria-hidden="true"> · </span>');
 
 const renderBulletList = (items: readonly string[]) =>
-  `<ul class="detail-list">${items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
+  `<ul class="detail-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 
 const renderProjects = (projects: readonly ProjectItem[]) =>
   projects
@@ -25,20 +43,20 @@ const renderProjects = (projects: readonly ProjectItem[]) =>
         <article class="project-item">
           <div class="project-meta">
             <p class="eyebrow">Project</p>
-            <h3>${project.name}</h3>
+            <h3>${escapeHtml(project.name)}</h3>
           </div>
           <div class="project-body">
             <dl class="project-facts">
               <div>
                 <dt>Languages</dt>
-                <dd>${project.languages}</dd>
+                <dd>${escapeHtml(project.languages)}</dd>
               </div>
               <div>
                 <dt>Type</dt>
-                <dd>${project.type}</dd>
+                <dd>${escapeHtml(project.type)}</dd>
               </div>
             </dl>
-            <p>${project.description}</p>
+            <p>${escapeHtml(project.description)}</p>
             <div class="project-links">${renderLinks(project.links)}</div>
           </div>
         </article>
@@ -51,30 +69,30 @@ app.innerHTML = `
     <header class="hero section">
       <div class="hero-copy">
         <p class="eyebrow">Portfolio</p>
-        <h1>${siteData.name}</h1>
-        <p class="hero-context">${siteData.context} · ${siteData.location}</p>
-        <p class="hero-intro">${siteData.intro}</p>
-        <p class="hero-availability">${siteData.availability}</p>
+        <h1>${escapeHtml(siteData.name)}</h1>
+        <p class="hero-context">${escapeHtml(siteData.context)} · ${escapeHtml(siteData.location)}</p>
+        <p class="hero-intro">${escapeHtml(siteData.intro)}</p>
+        <p class="hero-availability">${escapeHtml(siteData.availability)}</p>
         <div class="hero-actions">
-          <a class="button-link primary-link" href="mailto:${siteData.contact.email}">Email me</a>
-          <a class="button-link" href="${siteData.contact.github}" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="button-link primary-link" href="mailto:${escapeHtml(siteData.contact.email)}">Email me</a>
+          <a class="button-link" href="${escapeHtml(siteData.contact.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </div>
     </header>
 
     <section class="section featured-placement" aria-labelledby="placement-heading">
       <div class="section-heading">
-        <p class="eyebrow">${siteData.placement.eyebrow}</p>
-        <h2 id="placement-heading">${siteData.placement.company}</h2>
-        <p class="section-note">${siteData.placement.location}</p>
+        <p class="eyebrow">${escapeHtml(siteData.placement.eyebrow)}</p>
+        <h2 id="placement-heading">${escapeHtml(siteData.placement.company)}</h2>
+        <p class="section-note">${escapeHtml(siteData.placement.location)}</p>
       </div>
       <figure class="placement-media">
         <img
-          src="${siteData.placement.imageSrc}"
-          alt="${siteData.placement.imageAlt}"
+          src="${escapeHtml(siteData.placement.imageSrc)}"
+          alt="${escapeHtml(siteData.placement.imageAlt)}"
           class="placement-image"
         />
-        <figcaption>${siteData.placement.caption}</figcaption>
+        <figcaption>${escapeHtml(siteData.placement.caption)}</figcaption>
       </figure>
     </section>
 
@@ -119,8 +137,8 @@ app.innerHTML = `
       </div>
       <p>If you'd like to talk about internships, junior roles, software, infrastructure or AI, email me.</p>
       <div class="hero-actions">
-        <a class="button-link primary-link" href="mailto:${siteData.contact.email}">${siteData.contact.email}</a>
-        <a class="button-link" href="${siteData.contact.github}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="button-link primary-link" href="mailto:${escapeHtml(siteData.contact.email)}">${escapeHtml(siteData.contact.email)}</a>
+        <a class="button-link" href="${escapeHtml(siteData.contact.github)}" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
     </section>
   </main>
