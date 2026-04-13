@@ -136,7 +136,6 @@ select {
 
 .hero-availability,
 .section-note,
-.carousel-caption,
 .contact-copy {
   color: var(--muted);
 }
@@ -306,11 +305,37 @@ select {
   transform: rotate(8deg);
 }
 
-.carousel-caption {
-  max-width: 48ch;
+.carousel-outcome-host {
+  min-height: 7.8rem;
+}
+
+.carousel-outcome {
+  display: grid;
+  gap: 0.35rem;
+  width: min(100%, 37rem);
+}
+
+.carousel-outcome-kicker {
+  color: var(--text);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.carousel-outcome-headline {
+  max-width: 24ch;
+  font-size: clamp(1.2rem, 2.3vw, 1.72rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.carousel-outcome-detail {
+  max-width: 52ch;
   color: var(--muted);
   font-size: 0.98rem;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .carousel-controls {

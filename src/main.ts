@@ -1,6 +1,6 @@
 import "./styles.css";
 import { siteData } from "./content/site";
-import { renderAppHtml, renderMissionGlobalText } from "./render";
+import { renderAppHtml, renderCarouselOutcome } from "./render";
 
 document.documentElement.classList.add("js");
 
@@ -16,7 +16,7 @@ const slides = Array.from(document.querySelectorAll<HTMLElement>(".carousel-slid
 const dots = Array.from(document.querySelectorAll<HTMLButtonElement>(".carousel-dot"));
 const carouselShell = document.querySelector<HTMLElement>(".carousel-shell");
 const carouselStatus = document.querySelector<HTMLElement>(".carousel-status-value");
-const carouselCaption = document.querySelector<HTMLElement>(".carousel-caption");
+const carouselOutcomeHost = document.querySelector<HTMLElement>(".carousel-outcome-host");
 
 let activeSlide = 0;
 let carouselTimer: number | undefined;
@@ -42,8 +42,8 @@ const setActiveSlide = (index: number) => {
     carouselStatus.textContent = `${activeSlide + 1}/${slides.length}`;
   }
 
-  if (carouselCaption) {
-    carouselCaption.innerHTML = renderMissionGlobalText(siteData.carouselSlides[activeSlide]?.caption ?? "");
+  if (carouselOutcomeHost) {
+    carouselOutcomeHost.innerHTML = renderCarouselOutcome(siteData.carouselSlides[activeSlide]);
   }
 };
 

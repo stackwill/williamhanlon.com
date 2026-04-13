@@ -31,6 +31,20 @@ export const renderMissionGlobalText = (value: string) => {
   return escapeHtml(value).split(company).join(companyLink);
 };
 
+export const renderCarouselOutcome = (slide?: CarouselSlide) => {
+  if (!slide) {
+    return "";
+  }
+
+  return `
+    <div class="carousel-outcome">
+      <p class="carousel-outcome-kicker">${escapeHtml(slide.outcomeLabel)}</p>
+      <p class="carousel-outcome-headline">${escapeHtml(slide.outcomeHeadline)}</p>
+      <p class="carousel-outcome-detail">${renderMissionGlobalText(slide.caption)}</p>
+    </div>
+  `;
+};
+
 const renderMissionGlobalDisplayText = () => {
   const company = escapeHtml(siteData.placement.company);
   const displayCompany = escapeHtml(siteData.placement.displayCompany);
@@ -217,7 +231,7 @@ export const renderAppHtml = () => `
               <span class="carousel-status-value">1/${siteData.carouselSlides.length}</span>
             </p>
           </div>
-          <p class="carousel-caption">${renderMissionGlobalText(siteData.carouselSlides[0]?.caption ?? "")}</p>
+          <div class="carousel-outcome-host">${renderCarouselOutcome(siteData.carouselSlides[0])}</div>
         </div>
       </section>
       <a class="scroll-cue" href="#overview" aria-label="Scroll to experience summary">

@@ -14,6 +14,8 @@ export type ProjectItem = {
 export type CarouselSlide = {
   readonly src: string;
   readonly alt: string;
+  readonly outcomeLabel: string;
+  readonly outcomeHeadline: string;
   readonly caption: string;
   readonly callout?: {
     readonly label: string;
@@ -37,8 +39,10 @@ export const siteData = {
       src: "/mission-global-image.jpeg",
       alt:
         "Will Hanlon standing with a mug in the Mission Global office in Dubai while colleagues work at nearby desks.",
+      outcomeLabel: "Outcome",
+      outcomeHeadline: "Offered paid remote work after my WEX placement.",
       caption:
-        "After my work experience placement at Mission Global Dubai, I was offered paid remote work off the back of redesigning part of their internal project management system.",
+        "That followed my redesign of part of Mission Global's internal project management system in Dubai.",
       callout: {
         label: "that's me!",
         variant: "mission-global-face",
@@ -48,8 +52,10 @@ export const siteData = {
       src: "/carousel-starter.jpeg",
       alt:
         "Will Hanlon working on a laptop connected to external monitors while building an event logistics interface during placement.",
+      outcomeLabel: "Outcome",
+      outcomeHeadline: "Offered paid remote work after my WEX placement.",
       caption:
-        "After my work experience placement at Mission Global Dubai, I was offered paid remote work off the back of redesigning part of their internal project management system.",
+        "That followed my redesign of part of Mission Global's internal project management system in Dubai.",
     },
   ] satisfies readonly CarouselSlide[],
   placement: {
@@ -62,7 +68,7 @@ export const siteData = {
     imageAlt:
       "Will Hanlon standing with a mug in the Mission Global office in Dubai while colleagues work at nearby desks.",
     caption:
-      "After my Year 10 placement at Mission Global Dubai, I was offered paid remote work off the back of redesigning part of their internal project management system.",
+      "My Year 10 placement at Mission Global Dubai led to a paid remote work offer after I redesigned part of their internal project management system.",
   },
   infrastructure: [
     "I run Proxmox VE on my own hardware at home.",
