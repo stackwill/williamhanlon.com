@@ -11,9 +11,9 @@ const renderLinks = (links: readonly LinkItem[]) =>
   links
     .map(
       (link) =>
-        `<a class="inline-link" href="${link.href}" target="_blank" rel="noreferrer">${link.label}</a>`
+        `<a class="inline-link" href="${link.href}" target="_blank" rel="noopener noreferrer">${link.label}</a>`
     )
-    .join("");
+    .join('<span aria-hidden="true"> · </span>');
 
 const renderBulletList = (items: readonly string[]) =>
   `<ul class="detail-list">${items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
@@ -57,7 +57,7 @@ app.innerHTML = `
         <p class="hero-availability">${siteData.availability}</p>
         <div class="hero-actions">
           <a class="button-link primary-link" href="mailto:${siteData.contact.email}">Email me</a>
-          <a class="button-link" href="${siteData.contact.github}" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="button-link" href="${siteData.contact.github}" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </div>
     </header>
@@ -119,7 +119,7 @@ app.innerHTML = `
       <p>If you'd like to talk about internships, junior roles, software, infrastructure or AI, email me.</p>
       <div class="hero-actions">
         <a class="button-link primary-link" href="mailto:${siteData.contact.email}">${siteData.contact.email}</a>
-        <a class="button-link" href="${siteData.contact.github}" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="button-link" href="${siteData.contact.github}" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
     </section>
   </main>
