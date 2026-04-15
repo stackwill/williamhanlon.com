@@ -103,7 +103,7 @@ export const siteData = {
       languages: "Rust, Lua",
       type: "CLI tool",
       description: "A Rust-based text editor with a Lua plugin engine.",
-      links: [{ label: "GitHub", href: "https://github.com/stackwill/ultranano" }],
+      links: [{ label: "GitHub", href: "https://github.com/stackwill/ultranano-old" }],
     },
     {
       name: "easydictate",
