@@ -277,7 +277,6 @@ export const renderAppHtml = () => `
       <div class="section-heading section-header sticky-heading" data-scroll-reveal>
         <p class="eyebrow">Projects</p>
         <h2 id="projects-heading">Selected work</h2>
-        <p class="section-note">Compact, strongest-first, with GitHub as supporting proof.</p>
       </div>
       <div class="project-list">
         ${renderProjects(siteData.projects)}
