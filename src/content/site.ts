@@ -43,10 +43,6 @@ export const siteData = {
       outcomeHeadline: "Offered paid remote work after my WEX placement.",
       caption:
         "That followed my redesign of part of Mission Global's internal project management system in Dubai.",
-      callout: {
-        label: "that's me!",
-        variant: "mission-global-face",
-      },
     },
     {
       src: "/carousel-starter.jpeg",
