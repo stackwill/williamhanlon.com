@@ -11,6 +11,26 @@ export type ProjectItem = {
   readonly links: readonly LinkItem[];
 };
 
+export type FeaturedProject = {
+  readonly name: string;
+  readonly url: string;
+  readonly languages: string;
+  readonly type: string;
+  readonly summary: string;
+  readonly description: string;
+  readonly stats: readonly {
+    readonly value: string;
+    readonly label: string;
+  }[];
+  readonly highlights: readonly string[];
+  readonly screenshots: readonly {
+    readonly src: string;
+    readonly alt: string;
+    readonly caption: string;
+  }[];
+  readonly links: readonly LinkItem[];
+};
+
 export type CarouselSlide = {
   readonly src: string;
   readonly alt: string;
@@ -85,6 +105,49 @@ export const siteData = {
     "I experiment with local models and use OpenRouter for inference.",
     "I keep up with the current model landscape and understand concepts like mixture-of-experts.",
   ],
+  featuredProject: {
+    name: "IHateGCSE",
+    url: "https://ihategcse.com",
+    languages: "TypeScript, Node.js, Docker, GitHub Actions",
+    type: "Revision platform",
+    summary:
+      "A GCSE revision website that turns past papers into a marked practice flow.",
+    description:
+      "IHateGCSE imports real PMT papers and mark schemes, splits papers into question groups, renders question crops automatically, then allowing students to answer actual past papers and get instant AI marking, sourced with the actual mark scheme. I'm self hosting the entire project on my Homelab.",
+    stats: [
+      { value: "38", label: "imported papers" },
+      { value: "1,084", label: "question parts" },
+      { value: "2,840", label: "marks available" },
+      { value: "10", label: "course groups" },
+    ],
+    highlights: [
+      "Built with Next.js, React, Prisma, SQLite and TypeScript.",
+      "Deterministic import pipeline for paper discovery, PDF rendering, crops, mark schemes and data releases.",
+      "AI-assisted marking, supplied with all the relevant context and mark scheme points to maximise accuracy.",
+      "Fully self hosted, with Dockerized deployments through Github Actions workflows straight onto my hardware.",
+    ],
+    screenshots: [
+      {
+        src: "/followthescheme-home.png",
+        alt: "IHateGCSE homepage showing the subject library and GCSE paper counts.",
+        caption: "Subject library with imported papers and exam countdown.",
+      },
+      {
+        src: "/followthescheme-subject.png",
+        alt: "IHateGCSE answer page showing a Computer Science question group with answer fields.",
+        caption: "Question groups with cropped paper images and answer inputs.",
+      },
+      {
+        src: "/followthescheme-paper.png",
+        alt: "IHateGCSE Biology answer page showing visible answer boxes for a 2024 AQA paper.",
+        caption: "Biology practice with visible answer boxes, marks and navigation.",
+      },
+    ],
+    links: [
+      { label: "Website", href: "https://ihategcse.com" },
+      { label: "GitHub", href: "https://github.com/stackwill/follow-the-scheme" },
+    ],
+  } satisfies FeaturedProject,
   projects: [
     {
       name: "convertparty",

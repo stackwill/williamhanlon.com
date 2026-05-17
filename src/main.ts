@@ -83,6 +83,82 @@ if (carouselShell) {
 setActiveSlide(0);
 startCarousel();
 
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const lightboxTriggers = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-lightbox-src]"));
+const lightbox = document.createElement("div");
+let lightboxLastFocused: HTMLElement | null = null;
+
+lightbox.className = "image-lightbox";
+lightbox.hidden = true;
+lightbox.innerHTML = `
+  <button class="image-lightbox-backdrop" type="button" aria-label="Close full screen image"></button>
+  <figure class="image-lightbox-frame" role="dialog" aria-modal="true" aria-labelledby="image-lightbox-caption">
+    <button class="image-lightbox-close" type="button" aria-label="Close full screen image">Close</button>
+    <img class="image-lightbox-image" alt="" />
+    <figcaption class="image-lightbox-caption" id="image-lightbox-caption"></figcaption>
+  </figure>
+`;
+
+document.body.append(lightbox);
+
+const lightboxImage = lightbox.querySelector<HTMLImageElement>(".image-lightbox-image");
+const lightboxCaption = lightbox.querySelector<HTMLElement>(".image-lightbox-caption");
+const lightboxCloseControls = Array.from(
+  lightbox.querySelectorAll<HTMLButtonElement>(".image-lightbox-close, .image-lightbox-backdrop")
+);
+
+const closeLightbox = () => {
+  if (lightbox.hidden) {
+    return;
+  }
+
+  lightbox.dataset.open = "false";
+  document.body.dataset.lightboxOpen = "false";
+
+  window.setTimeout(
+    () => {
+      lightbox.hidden = true;
+      lightboxLastFocused?.focus();
+      lightboxLastFocused = null;
+    },
+    reducedMotionQuery.matches ? 0 : 220
+  );
+};
+
+const openLightbox = (trigger: HTMLButtonElement) => {
+  if (!lightboxImage || !lightboxCaption) {
+    return;
+  }
+
+  lightboxLastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  lightboxImage.src = trigger.dataset.lightboxSrc ?? "";
+  lightboxImage.alt = trigger.dataset.lightboxAlt ?? "";
+  lightboxCaption.textContent = trigger.dataset.lightboxCaption ?? "";
+  lightbox.hidden = false;
+  document.body.dataset.lightboxOpen = "true";
+
+  window.requestAnimationFrame(() => {
+    lightbox.dataset.open = "true";
+    lightboxCloseControls[0]?.focus();
+  });
+};
+
+lightboxTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", () => openLightbox(trigger));
+});
+
+lightboxCloseControls.forEach((control) => {
+  control.addEventListener("click", closeLightbox);
+});
+
+lightboxImage?.addEventListener("click", closeLightbox);
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeLightbox();
+  }
+});
+
 const updateScrollCue = () => {
   document.documentElement.dataset.scrolled = String(window.scrollY > 8);
 };
@@ -90,7 +166,6 @@ const updateScrollCue = () => {
 updateScrollCue();
 window.addEventListener("scroll", updateScrollCue, { passive: true });
 
-const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const scrollProgressTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-progress]"));
 const scrollRevealTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-reveal]"));
 let scrollEffectFrame: number | undefined;

@@ -1,6 +1,7 @@
 import {
   siteData,
   type CarouselSlide,
+  type FeaturedProject,
   type LinkItem,
   type ProjectItem,
 } from "./content/site";
@@ -131,6 +132,70 @@ const renderLanguageBadges = (languages: string) =>
     .filter(Boolean)
     .map((language) => `<li>${renderBadgeImage(language, "language-badge")}</li>`)
     .join("")}</ul>`;
+
+const renderFeaturedProject = (project: FeaturedProject) => `
+  <section class="section-block featured-project" aria-labelledby="featured-project-heading" data-scroll-progress>
+    <div class="featured-project-copy" data-scroll-reveal>
+      <p class="eyebrow">Premier project</p>
+      <h2 id="featured-project-heading">${escapeHtml(project.name)}</h2>
+      <p class="featured-project-summary">${escapeHtml(project.summary)}</p>
+      <p class="featured-project-description">${escapeHtml(project.description)}</p>
+      ${renderLanguageBadges(project.languages)}
+      <div class="featured-project-actions">
+        ${renderLinks(project.links)}
+      </div>
+    </div>
+
+    <div class="featured-project-media" data-scroll-reveal>
+      <div class="featured-screenshot-stack">
+        ${project.screenshots
+          .map(
+            (screenshot, index) => `
+              <figure class="featured-screenshot" data-shot="${index + 1}">
+                <button
+                  class="featured-screenshot-button"
+                  type="button"
+                  aria-label="Open ${escapeHtml(screenshot.caption)} full screen"
+                  data-lightbox-src="${escapeHtml(screenshot.src)}"
+                  data-lightbox-alt="${escapeHtml(screenshot.alt)}"
+                  data-lightbox-caption="${escapeHtml(screenshot.caption)}"
+                >
+                  <img
+                    src="${escapeHtml(screenshot.src)}"
+                    alt="${escapeHtml(screenshot.alt)}"
+                    loading="${index === 0 ? "eager" : "lazy"}"
+                    decoding="async"
+                  />
+                  <span class="featured-screenshot-zoom" aria-hidden="true">
+                    <span></span>
+                    View
+                  </span>
+                </button>
+                <figcaption>${escapeHtml(screenshot.caption)}</figcaption>
+              </figure>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
+
+    <div class="featured-project-details" data-scroll-reveal>
+      <dl class="featured-stats">
+        ${project.stats
+          .map(
+            (stat) => `
+              <div>
+                <dt>${escapeHtml(stat.value)}</dt>
+                <dd>${escapeHtml(stat.label)}</dd>
+              </div>
+            `
+          )
+          .join("")}
+      </dl>
+      ${renderBulletList(project.highlights, "featured-highlight-list")}
+    </div>
+  </section>
+`;
 
 const renderHeroTechnologies = (technologies: readonly string[]) =>
   `<ul class="tech-badge-list">${technologies
@@ -273,10 +338,12 @@ export const renderAppHtml = () => `
       </article>
     </section>
 
+    ${renderFeaturedProject(siteData.featuredProject)}
+
     <section class="section-block sticky-section" aria-labelledby="projects-heading" data-scroll-progress>
       <div class="section-heading section-header sticky-heading" data-scroll-reveal>
         <p class="eyebrow">Projects</p>
-        <h2 id="projects-heading">Selected work</h2>
+        <h2 id="projects-heading">Other selected work</h2>
       </div>
       <div class="project-list">
         ${renderProjects(siteData.projects)}
