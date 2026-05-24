@@ -168,6 +168,7 @@ window.addEventListener("scroll", updateScrollCue, { passive: true });
 
 const scrollProgressTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-progress]"));
 const scrollRevealTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-reveal]"));
+const featuredProjectCopy = document.querySelector<HTMLElement>(".featured-project-copy");
 let scrollEffectFrame: number | undefined;
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
@@ -213,6 +214,11 @@ const updateScrollEffects = () => {
     const rect = target.getBoundingClientRect();
     const shouldShow = rect.top < viewportHeight * 0.82 && rect.bottom > viewportHeight * -0.2;
     target.dataset.inview = String(shouldShow);
+
+    if (target === featuredProjectCopy && shouldShow && target.dataset.glintPlayed !== "true") {
+      target.dataset.glintPlayed = "true";
+      target.dataset.glintActive = "true";
+    }
   });
 };
 

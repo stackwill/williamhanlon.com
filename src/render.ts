@@ -137,7 +137,9 @@ const renderFeaturedProject = (project: FeaturedProject) => `
   <section class="section-block featured-project" aria-labelledby="featured-project-heading" data-scroll-progress>
     <div class="featured-project-copy" data-scroll-reveal>
       <p class="eyebrow">Premier project</p>
-      <h2 id="featured-project-heading">${escapeHtml(project.name)}</h2>
+      <h2 id="featured-project-heading">
+        <span class="featured-project-title-text" data-title="${escapeHtml(project.name)}">${escapeHtml(project.name)}</span>
+      </h2>
       <p class="featured-project-summary">${escapeHtml(project.summary)}</p>
       <p class="featured-project-description">${escapeHtml(project.description)}</p>
       <dl class="featured-stats" aria-label="IHateGCSE project metrics">
