@@ -140,6 +140,18 @@ const renderFeaturedProject = (project: FeaturedProject) => `
       <h2 id="featured-project-heading">${escapeHtml(project.name)}</h2>
       <p class="featured-project-summary">${escapeHtml(project.summary)}</p>
       <p class="featured-project-description">${escapeHtml(project.description)}</p>
+      <dl class="featured-stats" aria-label="IHateGCSE project metrics">
+        ${project.stats
+          .map(
+            (stat) => `
+              <div>
+                <dt>${escapeHtml(stat.value)}</dt>
+                <dd>${escapeHtml(stat.label)}</dd>
+              </div>
+            `
+          )
+          .join("")}
+      </dl>
       ${renderLanguageBadges(project.languages)}
       <div class="featured-project-actions">
         ${renderLinks(project.links)}
@@ -180,19 +192,18 @@ const renderFeaturedProject = (project: FeaturedProject) => `
     </div>
 
     <div class="featured-project-details" data-scroll-reveal>
-      <dl class="featured-stats">
-        ${project.stats
+      <div class="featured-feature-grid">
+        ${project.features
           .map(
-            (stat) => `
-              <div>
-                <dt>${escapeHtml(stat.value)}</dt>
-                <dd>${escapeHtml(stat.label)}</dd>
-              </div>
+            (feature) => `
+              <article class="featured-feature-card">
+                <h3>${escapeHtml(feature.title)}</h3>
+                <p>${escapeHtml(feature.body)}</p>
+              </article>
             `
           )
           .join("")}
-      </dl>
-      ${renderBulletList(project.highlights, "featured-highlight-list")}
+      </div>
     </div>
   </section>
 `;

@@ -22,7 +22,10 @@ export type FeaturedProject = {
     readonly value: string;
     readonly label: string;
   }[];
-  readonly highlights: readonly string[];
+  readonly features: readonly {
+    readonly title: string;
+    readonly body: string;
+  }[];
   readonly screenshots: readonly {
     readonly src: string;
     readonly alt: string;
@@ -113,18 +116,26 @@ export const siteData = {
     summary:
       "A GCSE revision website that turns past papers into a marked practice flow.",
     description:
-      "IHateGCSE imports real PMT papers and mark schemes, splits papers into question groups, renders question crops automatically, then allowing students to answer actual past papers and get instant AI marking, sourced with the actual mark scheme. I'm self hosting the entire project on my Homelab.",
+      "IHateGCSE imports real PMT papers and mark schemes, splits papers into question groups, renders question crops automatically, then allows students to answer actual past papers and get instant AI marking, sourced with the actual mark scheme. I'm self-hosting the entire project on my homelab.",
     stats: [
-      { value: "38", label: "imported papers" },
-      { value: "1,084", label: "question parts" },
-      { value: "2,840", label: "marks available" },
-      { value: "10", label: "course groups" },
+      { value: "45", label: "imported papers" },
+      { value: "1,126", label: "question parts" },
+      { value: "3,124", label: "marks available" },
+      { value: "11", label: "course groups" },
     ],
-    highlights: [
-      "Built with Next.js, React, Prisma, SQLite and TypeScript.",
-      "Deterministic import pipeline for paper discovery, PDF rendering, crops, mark schemes and data releases.",
-      "AI-assisted marking, supplied with all the relevant context and mark scheme points to maximise accuracy.",
-      "Fully self hosted, with Dockerized deployments through Github Actions workflows straight onto my hardware.",
+    features: [
+      {
+        title: "Import pipeline",
+        body: "Paper download, question extraction, image crops, mark scheme extraction and data releases to my server",
+      },
+      {
+        title: "AI marking",
+        body: "Student answer is combined with the mark scheme and any relevant context to provide an accurate mark",
+      },
+      {
+        title: "Self-hosted",
+        body: "Dockerised deployments through GitHub Actions straight onto my own hardware",
+      },
     ],
     screenshots: [
       {
