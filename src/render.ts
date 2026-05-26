@@ -82,6 +82,8 @@ const githubLogo = `
   </svg>
 `;
 
+const mainWebsiteUrl = "https://williamhanlon.com/";
+
 const languageBadgeStyles: Record<string, { readonly color: string; readonly logo: string; readonly logoColor: string }> = {
   ansible: { color: "EE0000", logo: "ansible", logoColor: "white" },
   docker: { color: "2496ED", logo: "docker", logoColor: "white" },
@@ -274,6 +276,59 @@ const renderProjects = (projects: readonly ProjectItem[]) =>
     )
     .join("");
 
+const renderCardHtml = () => `
+  <main class="card-page" aria-labelledby="card-name">
+    <section class="business-card" aria-label="William Hanlon business card">
+      <div class="business-card-header">
+        <div class="business-card-heading">
+          <div>
+            <p class="business-card-label">Business card</p>
+            <h1 id="card-name">${escapeHtml(siteData.name)}</h1>
+          </div>
+          <figure class="business-card-photo">
+            <img
+              src="/card-photo-v2.jpg"
+              alt="William Hanlon"
+              loading="eager"
+              decoding="async"
+            />
+          </figure>
+        </div>
+        <div class="business-card-intro">
+          <p class="business-card-role">${escapeHtml(siteData.context)}</p>
+          <p class="business-card-summary">${escapeHtml(siteData.intro)}</p>
+        </div>
+      </div>
+
+      <div class="business-card-links" aria-label="Contact links">
+        <a class="business-card-primary" href="${mainWebsiteUrl}">williamhanlon.com</a>
+        <a class="business-card-link" href="mailto:${escapeHtml(siteData.contact.email)}">
+          <span>Email</span>
+          <strong>${escapeHtml(siteData.contact.email)}</strong>
+        </a>
+        <a class="business-card-link" href="${escapeHtml(siteData.contact.github)}" target="_blank" rel="noopener noreferrer">
+          <span>GitHub</span>
+          <strong>github.com/stackwill</strong>
+        </a>
+        <div class="business-card-link" aria-label="Location">
+          <span>Location</span>
+          <strong>${escapeHtml(siteData.location)}</strong>
+        </div>
+      </div>
+
+      <div class="phone-card" aria-label="Phone reveal">
+        <p class="phone-card-title">Phone</p>
+        <div class="phone-reveal" data-phone-reveal>
+          <p class="phone-reveal-value" data-phone-value>Scratch to request</p>
+          <div class="phone-scratch" data-phone-scratch aria-label="Scratch to reveal phone number" role="button" tabindex="0">
+            <span class="phone-scratch-label">Scratch</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+`;
+
 export const renderAppHtml = () => `
   <main class="page-shell">
     <header class="hero" data-scroll-progress>
@@ -379,3 +434,13 @@ export const renderAppHtml = () => `
     </section>
   </main>
 `;
+
+export const renderPageHtml = (pathname = "/") => {
+  const normalizedPath = pathname.replace(/\/+$/, "") || "/";
+
+  if (normalizedPath === "/card") {
+    return renderCardHtml();
+  }
+
+  return renderAppHtml();
+};

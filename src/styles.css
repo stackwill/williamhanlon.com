@@ -40,6 +40,18 @@ body[data-lightbox-open="true"] {
   overflow: hidden;
 }
 
+body[data-route="card"] {
+  min-height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  background: #eeeeea;
+}
+
+body[data-route="card"] #app {
+  width: 100%;
+  overflow: hidden;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -210,6 +222,264 @@ select {
 .carousel-dot:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+.card-page {
+  --card-bg: #ffffff;
+  --card-ink: #181715;
+  --card-muted: #6e6a62;
+  --card-rule: #d8d4cc;
+  --card-soft: #f8f7f4;
+  --card-accent: #1f4b43;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  max-width: 100vw;
+  height: 100svh;
+  min-height: 100svh;
+  padding:
+    max(0.7rem, env(safe-area-inset-top))
+    max(0.75rem, env(safe-area-inset-right))
+    max(0.7rem, env(safe-area-inset-bottom))
+    max(0.75rem, env(safe-area-inset-left));
+  overflow: hidden;
+  color: var(--card-ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.business-card {
+  position: fixed;
+  left: 50vw;
+  top: 50svh;
+  display: grid;
+  gap: clamp(1rem, 2.4svh, 1.45rem);
+  width: min(calc(100vw - 2rem), 23.5rem);
+  max-height: min(calc(100svh - 2rem), 44rem);
+  overflow: hidden;
+  padding: clamp(1.05rem, 3.2svh, 1.55rem);
+  border: 1px solid var(--card-rule);
+  border-radius: 0.55rem;
+  background: var(--card-bg);
+  box-shadow:
+    0 1.4rem 3.8rem rgba(19, 18, 15, 0.1),
+    0 0 0 0.3rem rgba(255, 255, 255, 0.52);
+  transform: translate(-50%, -50%);
+}
+
+.business-card-header {
+  display: grid;
+  gap: 0.85rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--card-rule);
+}
+
+.business-card-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 7.45rem;
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.business-card-photo {
+  position: relative;
+  width: 7.45rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--card-rule);
+  border-radius: 0.32rem;
+  background: var(--card-soft);
+}
+
+.business-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.92) contrast(1.04);
+}
+
+.business-card-intro {
+  display: grid;
+  gap: 0.28rem;
+}
+
+.business-card-label,
+.phone-card-title,
+.business-card-link span {
+  color: var(--card-muted);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.business-card h1 {
+  margin-top: 0.28rem;
+  font-size: clamp(2.1rem, 9.5vw, 2.82rem);
+  font-weight: 850;
+  line-height: 0.88;
+  letter-spacing: -0.058em;
+}
+
+.business-card-role {
+  color: var(--card-ink);
+  font-size: clamp(0.98rem, 3.7vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.business-card-summary {
+  max-width: 28rem;
+  color: var(--card-muted);
+  font-size: clamp(0.92rem, 3.3vw, 1rem);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.business-card-links {
+  display: grid;
+  gap: 0.62rem;
+}
+
+.business-card-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  padding: 0.72rem 1rem;
+  border: 1px solid var(--card-ink);
+  border-radius: 0.18rem;
+  background: var(--card-ink);
+  color: #fff;
+  font-size: 0.94rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.business-card-link {
+  display: grid;
+  gap: 0.26rem;
+  min-width: 0;
+  padding: 0.72rem 0;
+  border-bottom: 1px solid var(--card-rule);
+  color: inherit;
+  text-decoration: none;
+}
+
+.business-card-link strong {
+  overflow-wrap: anywhere;
+  font-size: clamp(0.95rem, 3.55vw, 1.03rem);
+  font-weight: 650;
+  line-height: 1.18;
+}
+
+.business-card-primary:hover,
+.business-card-link:hover {
+  color: var(--card-accent);
+}
+
+.business-card-primary:hover {
+  background: var(--card-accent);
+  color: #fff;
+}
+
+.business-card-primary:focus-visible,
+.business-card-link:focus-visible,
+.phone-scratch:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: 3px;
+}
+
+.phone-card {
+  display: grid;
+  gap: 0.58rem;
+  padding: 0.78rem;
+  border: 1px solid var(--card-rule);
+  border-radius: 0.28rem;
+  background: var(--card-soft);
+}
+
+.phone-reveal {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 3.5rem;
+  overflow: hidden;
+  border: 1px solid var(--card-rule);
+  border-radius: 0.22rem;
+  background: #fff;
+}
+
+.phone-reveal-value {
+  display: grid;
+  place-items: center;
+  min-height: 3.5rem;
+  padding: 0.5rem;
+  color: var(--card-ink);
+  font-size: clamp(0.92rem, 3.5vw, 1rem);
+  font-weight: 750;
+  line-height: 1;
+  text-align: center;
+}
+
+.phone-reveal-value a {
+  text-decoration: none;
+}
+
+.phone-scratch {
+  --scratch-progress: 0;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 0;
+  background:
+    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.36) 0 0.2rem, transparent 0.2rem 0.5rem),
+    linear-gradient(135deg, #d6d2c9, #f4f1eb 46%, #bbb5aa);
+  cursor: grab;
+  touch-action: none;
+  opacity: calc(1 - (var(--scratch-progress) * 0.78));
+  transition: opacity 180ms ease;
+}
+
+.phone-scratch:active {
+  cursor: grabbing;
+}
+
+.phone-scratch[hidden] {
+  display: none;
+}
+
+.phone-scratch-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  color: rgba(25, 25, 25, 0.64);
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%);
+}
+
+.phone-scratch-mark {
+  position: absolute;
+  z-index: 1;
+  width: 2.3rem;
+  height: 1.45rem;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.68) 58%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.phone-scratch[data-state="loading"] .phone-scratch-label,
+.phone-scratch[data-state="unavailable"] .phone-scratch-label,
+.phone-scratch[data-state="error"] .phone-scratch-label {
+  color: rgba(25, 27, 24, 0.72);
+  transform: translate(-50%, -50%);
 }
 
 .primary-link {
@@ -1140,6 +1410,53 @@ select {
 
   .scroll-cue {
     bottom: 1.5rem;
+  }
+}
+
+@media (max-height: 42rem) {
+  .card-page {
+    padding-top: max(0.45rem, env(safe-area-inset-top));
+    padding-bottom: max(0.45rem, env(safe-area-inset-bottom));
+  }
+
+  .business-card {
+    gap: 0.8rem;
+    padding: 0.9rem;
+  }
+
+  .business-card-header {
+    gap: 0.34rem;
+  }
+
+  .business-card h1 {
+    font-size: clamp(2rem, 11vw, 3.05rem);
+  }
+
+  .business-card-summary {
+    font-size: 0.86rem;
+    line-height: 1.22;
+  }
+
+  .business-card-links {
+    gap: 0.44rem;
+  }
+
+  .business-card-link {
+    padding-block: 0.55rem;
+  }
+
+  .business-card-primary {
+    min-height: 2.55rem;
+    padding-block: 0.58rem;
+  }
+
+  .phone-card {
+    padding: 0.68rem;
+  }
+
+  .phone-reveal,
+  .phone-reveal-value {
+    min-height: 3.15rem;
   }
 }
 
