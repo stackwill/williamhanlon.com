@@ -316,14 +316,9 @@ const renderCardHtml = () => `
         </div>
       </div>
 
-      <div class="phone-card" aria-label="Phone reveal">
-        <p class="phone-card-title">Phone</p>
-        <div class="phone-reveal" data-phone-reveal>
-          <p class="phone-reveal-value" data-phone-value>Scratch to request</p>
-          <div class="phone-scratch" data-phone-scratch aria-label="Scratch to reveal phone number" role="button" tabindex="0">
-            <span class="phone-scratch-label">Scratch</span>
-          </div>
-        </div>
+      <div class="opportunity-card" aria-label="Opportunity interests">
+        <p class="opportunity-card-title">Open to</p>
+        <p>Internships, junior opportunities, software projects, infrastructure work, and technical work experience.</p>
       </div>
     </section>
   </main>

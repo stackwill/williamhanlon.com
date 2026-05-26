@@ -304,7 +304,7 @@ select {
 }
 
 .business-card-label,
-.phone-card-title,
+.opportunity-card-title,
 .business-card-link span {
   color: var(--card-muted);
   font-size: 0.64rem;
@@ -385,101 +385,34 @@ select {
 }
 
 .business-card-primary:focus-visible,
-.business-card-link:focus-visible,
-.phone-scratch:focus-visible {
+.business-card-link:focus-visible {
   outline: 2px solid var(--card-accent);
   outline-offset: 3px;
 }
 
-.phone-card {
+.opportunity-card {
   display: grid;
-  gap: 0.58rem;
+  gap: 0.42rem;
   padding: 0.78rem;
   border: 1px solid var(--card-rule);
   border-radius: 0.28rem;
   background: var(--card-soft);
 }
 
-.phone-reveal {
-  position: relative;
-  display: grid;
-  min-width: 0;
-  min-height: 3.5rem;
-  overflow: hidden;
-  border: 1px solid var(--card-rule);
-  border-radius: 0.22rem;
-  background: #fff;
-}
-
-.phone-reveal-value {
-  display: grid;
-  place-items: center;
-  min-height: 3.5rem;
-  padding: 0.5rem;
-  color: var(--card-ink);
-  font-size: clamp(0.92rem, 3.5vw, 1rem);
-  font-weight: 750;
-  line-height: 1;
-  text-align: center;
-}
-
-.phone-reveal-value a {
-  text-decoration: none;
-}
-
-.phone-scratch {
-  --scratch-progress: 0;
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border: 0;
-  background:
-    repeating-linear-gradient(112deg, rgba(255, 255, 255, 0.36) 0 0.2rem, transparent 0.2rem 0.5rem),
-    linear-gradient(135deg, #d6d2c9, #f4f1eb 46%, #bbb5aa);
-  cursor: grab;
-  touch-action: none;
-  opacity: calc(1 - (var(--scratch-progress) * 0.78));
-  transition: opacity 180ms ease;
-}
-
-.phone-scratch:active {
-  cursor: grabbing;
-}
-
-.phone-scratch[hidden] {
-  display: none;
-}
-
-.phone-scratch-label {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 2;
-  color: rgba(25, 25, 25, 0.64);
-  font-size: 0.7rem;
-  font-weight: 850;
+.opportunity-card-title {
+  color: var(--card-muted);
+  font-size: 0.64rem;
+  font-weight: 800;
   letter-spacing: 0.12em;
+  line-height: 1;
   text-transform: uppercase;
-  transform: translate(-50%, -50%);
 }
 
-.phone-scratch-mark {
-  position: absolute;
-  z-index: 1;
-  width: 2.3rem;
-  height: 1.45rem;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.68) 58%, transparent 70%);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.phone-scratch[data-state="loading"] .phone-scratch-label,
-.phone-scratch[data-state="unavailable"] .phone-scratch-label,
-.phone-scratch[data-state="error"] .phone-scratch-label {
-  color: rgba(25, 27, 24, 0.72);
-  transform: translate(-50%, -50%);
+.opportunity-card p:last-child {
+  color: var(--card-ink);
+  font-size: clamp(0.9rem, 3.25vw, 0.98rem);
+  font-weight: 650;
+  line-height: 1.32;
 }
 
 .primary-link {
@@ -1450,13 +1383,8 @@ select {
     padding-block: 0.58rem;
   }
 
-  .phone-card {
+  .opportunity-card {
     padding: 0.68rem;
-  }
-
-  .phone-reveal,
-  .phone-reveal-value {
-    min-height: 3.15rem;
   }
 }
 
