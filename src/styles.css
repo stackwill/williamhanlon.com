@@ -1229,24 +1229,6 @@ select {
     grid-template-columns: minmax(0, 0.94fr) minmax(22rem, 0.9fr);
   }
 
-  .hero[data-scroll-progress] {
-    min-height: 142svh;
-  }
-
-  .hero-copy,
-  .hero-media {
-    position: sticky;
-    top: clamp(1rem, 3.5vh, 2.5rem);
-  }
-
-  .hero-copy {
-    --scroll-y: var(--scroll-copy-y, 0px);
-  }
-
-  .hero-media {
-    top: clamp(1rem, 4vh, 3rem);
-  }
-
   .overview-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 1.9rem;

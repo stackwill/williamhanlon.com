@@ -374,7 +374,7 @@ const renderCardHtml = () => `
 
 export const renderAppHtml = () => `
   <main class="page-shell">
-    <header class="hero" data-scroll-progress>
+    <header class="hero">
       <div class="hero-copy" data-scroll-reveal>
         <p class="eyebrow">Portfolio</p>
         <h1>${escapeHtml(siteData.name)}</h1>
