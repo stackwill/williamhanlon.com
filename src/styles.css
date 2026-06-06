@@ -101,7 +101,6 @@ select {
   display: grid;
   gap: clamp(1.5rem, 2.8vw, 2.75rem);
   align-items: start;
-  min-height: calc(100svh - clamp(5.5rem, 10vw, 8rem));
   padding: 0.35rem 0 clamp(4rem, 9vh, 6.5rem);
 }
 
