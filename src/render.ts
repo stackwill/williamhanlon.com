@@ -82,15 +82,50 @@ const githubLogo = `
   </svg>
 `;
 
+const linkLogo = `
+  <svg class="button-link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+    />
+  </svg>
+`;
+
+const renderFeaturedProjectActions = (links: readonly LinkItem[]) =>
+  `<ul class="featured-action-list">${links
+    .map((link) => {
+      const isGitHub = link.label.toLowerCase() === "github";
+      const className = isGitHub ? "button-link github-link" : "button-link primary-link";
+      const label = isGitHub
+        ? githubLogo
+        : `${linkLogo}<span>${escapeHtml(new URL(link.href).hostname.replace(/^www\./, ""))}</span>`;
+      const ariaLabel = isGitHub ? ` aria-label="${escapeHtml(link.label)}"` : "";
+
+      return `
+        <li>
+          <a class="${className}" href="${escapeHtml(link.href)}" target="_blank" rel="noopener noreferrer"${ariaLabel}>
+            ${label}
+          </a>
+        </li>
+      `;
+    })
+    .join("")}</ul>`;
+
 const mainWebsiteUrl = "https://williamhanlon.com/";
 
 const languageBadgeStyles: Record<string, { readonly color: string; readonly logo: string; readonly logoColor: string }> = {
   ansible: { color: "EE0000", logo: "ansible", logoColor: "white" },
+  claudecode: { color: "D97757", logo: "claude", logoColor: "white" },
   docker: { color: "2496ED", logo: "docker", logoColor: "white" },
   githubactions: { color: "2088FF", logo: "githubactions", logoColor: "white" },
   go: { color: "00ADD8", logo: "go", logoColor: "white" },
   linux: { color: "FCC624", logo: "linux", logoColor: "171717" },
   lua: { color: "2C2D72", logo: "lua", logoColor: "white" },
+  kubernetes: { color: "326CE5", logo: "kubernetes", logoColor: "white" },
   nodedotjs: { color: "5FA04E", logo: "nodedotjs", logoColor: "white" },
   proxmox: { color: "E57000", logo: "proxmox", logoColor: "white" },
   python: { color: "3776AB", logo: "python", logoColor: "white" },
@@ -98,7 +133,7 @@ const languageBadgeStyles: Record<string, { readonly color: string; readonly log
   typescript: { color: "3178C6", logo: "typescript", logoColor: "white" },
 };
 
-const heroTechnologies = ["Linux", "Proxmox", "Docker", "Rust", "Python", "TypeScript", "Node.js", "GitHub Actions", "Ansible"];
+const heroTechnologies = ["Linux", "Proxmox", "Docker", "Codex", "Claude Code", "Python", "Kubernetes", "GitHub Actions", "Ansible"];
 
 const getBadgeStyle = (label: string) => {
   const slug = label.toLowerCase().replace(/\./g, "dot").replace(/[^a-z0-9]+/g, "");
@@ -114,6 +149,19 @@ const getBadgeStyle = (label: string) => {
 
 const renderBadgeImage = (label: string, className: string) => {
   const { badge } = getBadgeStyle(label);
+
+  if (label === "Codex") {
+    return `
+      <img
+        class="${className}"
+        src="/codex-badge.svg"
+        alt="Codex"
+        loading="lazy"
+        decoding="async"
+      />
+    `;
+  }
+
   const src = `https://img.shields.io/badge/${encodeURIComponent(label)}-${badge.color}?style=flat-square&logo=${encodeURIComponent(badge.logo)}&logoColor=${encodeURIComponent(badge.logoColor)}`;
 
   return `
@@ -158,7 +206,7 @@ const renderFeaturedProject = (project: FeaturedProject) => `
       </dl>
       ${renderLanguageBadges(project.languages)}
       <div class="featured-project-actions">
-        ${renderLinks(project.links)}
+        ${renderFeaturedProjectActions(project.links)}
       </div>
     </div>
 
@@ -394,8 +442,8 @@ export const renderAppHtml = () => `
 
       <article class="info-panel" data-scroll-reveal>
         <div class="section-heading compact">
-          <p class="eyebrow">Direction</p>
-          <h2 id="ai-heading">Current interests</h2>
+          <p class="eyebrow">Focus</p>
+          <h2 id="ai-heading">AI-based development</h2>
         </div>
         ${renderBulletList(siteData.ai, "panel-list")}
       </article>

@@ -181,7 +181,6 @@ const setStaticScrollState = () => {
     target.style.setProperty("--scroll-progress", "0");
     target.style.setProperty("--scroll-copy-y", "0px");
     target.style.setProperty("--scroll-media-y", "0px");
-    target.style.setProperty("--scroll-media-scale", "1");
     target.style.setProperty("--scroll-section-y", "0px");
   });
 
@@ -209,7 +208,6 @@ const updateScrollEffects = () => {
     target.style.setProperty("--scroll-progress", progress.toFixed(3));
     target.style.setProperty("--scroll-copy-y", `${(-22 * lead).toFixed(1)}px`);
     target.style.setProperty("--scroll-media-y", `${(34 * lead).toFixed(1)}px`);
-    target.style.setProperty("--scroll-media-scale", (1 - lead * 0.035).toFixed(3));
     target.style.setProperty("--scroll-section-y", `${(-16 * lead).toFixed(1)}px`);
   });
 

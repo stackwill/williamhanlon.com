@@ -165,7 +165,7 @@ select {
 .hero-tech {
   display: grid;
   gap: 0.7rem;
-  max-width: 34rem;
+  max-width: 36rem;
   margin-top: clamp(1.8rem, 5vw, 4rem);
 }
 
@@ -215,6 +215,13 @@ select {
   width: 1.25rem;
   height: 1.25rem;
   flex: 0 0 auto;
+}
+
+.button-link-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  margin-right: 0.45rem;
 }
 
 .button-link:focus-visible,
@@ -429,7 +436,7 @@ select {
 .hero-media {
   --scroll-y: var(--scroll-media-y, 0px);
   min-width: 0;
-  transform: translate3d(0, calc(var(--reveal-y, 0px) + var(--scroll-y)), 0) scale(var(--scroll-media-scale, 1));
+  transform: translate3d(0, calc(var(--reveal-y, 0px) + var(--scroll-y)), 0);
 }
 
 .carousel-shell {
@@ -709,10 +716,6 @@ select {
   opacity: 1;
 }
 
-.js .hero-media[data-scroll-reveal] {
-  transform: translate3d(0, calc(var(--reveal-y) + var(--scroll-y)), 0) scale(var(--scroll-media-scale, 1));
-}
-
 .info-panel,
 .section-block {
   border-top: 1px solid var(--rule);
@@ -893,8 +896,13 @@ select {
   text-transform: uppercase;
 }
 
-.featured-project-actions .project-links {
+.featured-action-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-top: 0.25rem;
+  padding: 0;
+  list-style: none;
 }
 
 .featured-project-media {

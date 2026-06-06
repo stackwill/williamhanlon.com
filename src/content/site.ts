@@ -103,25 +103,25 @@ export const siteData = {
     "I have experimented with GitOps and Kubernetes.",
   ],
   ai: [
-    "I have had a strong interest in AI, all the way since before GPT-3.",
-    "I use AI development tools heavily, such as Claude Code and Codex.",
+    "I use Codex heavily as part of my development workflow.",
+    "I also use Claude Code and have had a strong interest in AI since before GPT-3.5.",
     "I experiment with local models and use OpenRouter for inference.",
     "I keep up with the current model landscape and understand concepts like mixture-of-experts.",
   ],
   featuredProject: {
     name: "IHateGCSE",
     url: "https://ihategcse.com",
-    languages: "TypeScript, Node.js, Docker, GitHub Actions",
+    languages: "TypeScript, Node.js, Docker, GitHub Actions, Linux, Codex",
     type: "Revision platform",
     summary:
       "A GCSE revision website that turns past papers into a marked practice flow.",
     description:
       "IHateGCSE imports real PMT papers and mark schemes, splits papers into question groups, renders question crops automatically, then allows students to answer actual past papers and get instant AI marking, sourced with the actual mark scheme. I'm self-hosting the entire project on my homelab.",
     stats: [
-      { value: "45", label: "imported papers" },
-      { value: "1,126", label: "question parts" },
-      { value: "3,124", label: "marks available" },
-      { value: "11", label: "course groups" },
+      { value: "55", label: "imported papers" },
+      { value: "1,264", label: "question parts" },
+      { value: "3,830", label: "marks available" },
+      { value: "12", label: "course groups" },
     ],
     features: [
       {
@@ -150,12 +150,12 @@ export const siteData = {
       },
       {
         src: "/followthescheme-paper.png",
-        alt: "IHateGCSE Biology answer page showing visible answer boxes for a 2024 AQA paper.",
-        caption: "Biology practice with visible answer boxes, marks and navigation.",
+        alt: "IHateGCSE Biology answer page showing an AI-marked answer awarded one mark.",
+        caption: "Biology practice with an answer marked against the official mark scheme.",
       },
     ],
     links: [
-      { label: "Website", href: "https://ihategcse.com" },
+      { label: "Website", href: "https://ihategcse.com/demo/portfolio" },
       { label: "GitHub", href: "https://github.com/stackwill/follow-the-scheme" },
     ],
   } satisfies FeaturedProject,
