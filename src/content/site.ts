@@ -111,7 +111,7 @@ export const siteData = {
   featuredProject: {
     name: "IHateGCSE",
     url: "https://ihategcse.com",
-    languages: "TypeScript, Node.js, Docker, GitHub Actions, Linux, Codex",
+    languages: "TypeScript, Node.js, Docker, GitHub Actions",
     type: "Revision platform",
     summary:
       "A GCSE revision website that turns past papers into a marked practice flow.",

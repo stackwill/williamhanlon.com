@@ -1201,6 +1201,15 @@ select {
   max-width: none;
 }
 
+.featured-project-copy > .language-badge-list {
+  max-width: 36rem;
+  gap: 0.65rem;
+}
+
+.featured-project-copy .language-badge {
+  height: 1.75rem;
+}
+
 .project-links {
   display: flex;
   flex-wrap: wrap;
