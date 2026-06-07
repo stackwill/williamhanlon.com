@@ -23,6 +23,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: clamp(1rem, 4svh, 2rem);
 }
 
 body {
@@ -82,9 +83,56 @@ select {
 }
 
 .page-shell {
+  position: relative;
   width: min(100% - (var(--gutter) * 2), var(--max-width));
   margin: 0 auto;
   padding: clamp(1rem, 2vw, 1.5rem) 0 3rem;
+}
+
+.folio-page {
+  position: relative;
+  isolation: isolate;
+  scroll-margin-top: clamp(1rem, 4svh, 2rem);
+}
+
+.folio-page + .folio-page {
+  margin-top: clamp(2.2rem, 6vw, 4.5rem);
+}
+
+.folio-page::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: clamp(2.8rem, 9vw, 7rem);
+  height: 2px;
+  content: "";
+  background: var(--accent);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition:
+    opacity 360ms var(--ease-out-quint),
+    transform 520ms var(--ease-out-quint);
+}
+
+.js .folio-page {
+  transition:
+    opacity 420ms var(--ease-out-quint),
+    transform 520ms var(--ease-out-quint);
+}
+
+.js .folio-page:not([data-folio-active="true"]) {
+  opacity: 0.74;
+}
+
+.js .folio-page[data-folio-active="true"] {
+  opacity: 1;
+  transform: translate3d(0, -0.2rem, 0);
+}
+
+.js .folio-page[data-folio-active="true"]::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .eyebrow,
@@ -183,6 +231,7 @@ select {
 }
 
 .button-link {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -194,6 +243,7 @@ select {
   color: var(--text);
   font-weight: 700;
   text-decoration: none;
+  isolation: isolate;
   transition:
     background-color 180ms ease,
     border-color 180ms ease,
@@ -1120,36 +1170,6 @@ select {
   outline-offset: 3px;
 }
 
-.featured-project-details {
-  display: grid;
-  gap: 1rem;
-}
-
-.featured-feature-grid {
-  display: grid;
-  gap: 0.8rem;
-}
-
-.featured-feature-card {
-  display: grid;
-  gap: 0.34rem;
-  align-content: start;
-  padding: 1rem 0;
-  border-top: 1px solid var(--rule);
-}
-
-.featured-feature-card h3 {
-  font-size: clamp(1.03rem, 1.6vw, 1.24rem);
-  line-height: 1.02;
-  letter-spacing: -0.032em;
-}
-
-.featured-feature-card p {
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.42;
-}
-
 .sticky-heading {
   --scroll-y: var(--scroll-section-y, 0px);
 }
@@ -1253,10 +1273,6 @@ select {
     width: min(100%, 43rem);
   }
 
-  .featured-project-details {
-    grid-column: 1 / -1;
-  }
-
   .featured-screenshot-stack {
     grid-template-columns: repeat(6, minmax(0, 1fr));
     align-items: start;
@@ -1279,11 +1295,6 @@ select {
     grid-column: 4 / -1;
   }
 
-  .featured-feature-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.1rem;
-  }
-
   .sticky-section {
     display: grid;
     grid-template-columns: minmax(10rem, 0.38fr) minmax(0, 1fr);
@@ -1304,6 +1315,10 @@ select {
 
   .sticky-section .project-list {
     margin-top: 0.15rem;
+  }
+
+  .projects-scene .sticky-heading {
+    top: clamp(2rem, 8vh, 4rem);
   }
 
   .project-item {

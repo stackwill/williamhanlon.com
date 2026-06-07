@@ -184,7 +184,7 @@ const renderLanguageBadges = (languages: string) =>
     .join("")}</ul>`;
 
 const renderFeaturedProject = (project: FeaturedProject) => `
-  <section class="section-block featured-project" aria-labelledby="featured-project-heading" data-scroll-progress>
+  <section class="section-block featured-project folio-page" id="ihategcse" aria-labelledby="featured-project-heading" data-scroll-progress data-folio-section="ihategcse">
     <div class="featured-project-copy" data-scroll-reveal>
       <p class="eyebrow">Premier project</p>
       <h2 id="featured-project-heading">
@@ -243,20 +243,6 @@ const renderFeaturedProject = (project: FeaturedProject) => `
       </div>
     </div>
 
-    <div class="featured-project-details" data-scroll-reveal>
-      <div class="featured-feature-grid">
-        ${project.features
-          .map(
-            (feature) => `
-              <article class="featured-feature-card">
-                <h3>${escapeHtml(feature.title)}</h3>
-                <p>${escapeHtml(feature.body)}</p>
-              </article>
-            `
-          )
-          .join("")}
-      </div>
-    </div>
   </section>
 `;
 
@@ -374,7 +360,7 @@ const renderCardHtml = () => `
 
 export const renderAppHtml = () => `
   <main class="page-shell">
-    <header class="hero">
+    <header class="hero folio-page" id="intro" data-folio-section="intro">
       <div class="hero-copy" data-scroll-reveal>
         <p class="eyebrow">Portfolio</p>
         <h1>${escapeHtml(siteData.name)}</h1>
@@ -415,7 +401,7 @@ export const renderAppHtml = () => `
       </a>
     </header>
 
-    <section class="overview-grid" id="overview" aria-label="Core experience summary">
+    <section class="overview-grid folio-page" id="overview" aria-label="Core experience summary" data-folio-section="overview">
       <article class="info-panel" data-scroll-reveal>
         <div class="section-heading compact">
           <p class="eyebrow">${escapeHtml(siteData.placement.eyebrow)}</p>
@@ -451,7 +437,7 @@ export const renderAppHtml = () => `
 
     ${renderFeaturedProject(siteData.featuredProject)}
 
-    <section class="section-block sticky-section" aria-labelledby="projects-heading" data-scroll-progress>
+    <section class="section-block sticky-section projects-scene folio-page" id="projects" aria-labelledby="projects-heading" data-scroll-progress data-folio-section="projects">
       <div class="section-heading section-header sticky-heading" data-scroll-reveal>
         <p class="eyebrow">Projects</p>
         <h2 id="projects-heading">Other selected work</h2>
@@ -461,7 +447,7 @@ export const renderAppHtml = () => `
       </div>
     </section>
 
-    <section class="section-block contact-section sticky-section" aria-labelledby="contact-heading" data-scroll-progress>
+    <section class="section-block contact-section sticky-section folio-page" id="contact" aria-labelledby="contact-heading" data-scroll-progress data-folio-section="contact">
       <div class="section-heading section-header sticky-heading" data-scroll-reveal>
         <p class="eyebrow">Contact</p>
         <h2 id="contact-heading">Get in touch</h2>

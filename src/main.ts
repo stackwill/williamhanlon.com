@@ -11,8 +11,10 @@ if (!app) {
 }
 
 const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+const currentRoute = currentPath === "/card" ? "card" : "home";
 
-document.body.dataset.route = currentPath === "/card" ? "card" : "home";
+document.documentElement.dataset.route = currentRoute;
+document.body.dataset.route = currentRoute;
 app.innerHTML = renderPageHtml(currentPath);
 
 const slides = Array.from(document.querySelectorAll<HTMLElement>(".carousel-slide"));
@@ -171,6 +173,7 @@ window.addEventListener("scroll", updateScrollCue, { passive: true });
 
 const scrollProgressTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-progress]"));
 const scrollRevealTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-reveal]"));
+const folioSectionTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-folio-section]"));
 const featuredProjectCopy = document.querySelector<HTMLElement>(".featured-project-copy");
 let scrollEffectFrame: number | undefined;
 
@@ -189,15 +192,36 @@ const setStaticScrollState = () => {
   });
 };
 
+const updateFolioState = (viewportHeight: number) => {
+  if (folioSectionTargets.length === 0) {
+    return;
+  }
+
+  let activeSection = folioSectionTargets[0];
+
+  folioSectionTargets.forEach((target) => {
+    const rect = target.getBoundingClientRect();
+
+    if (rect.top <= viewportHeight * 0.44 && rect.bottom > viewportHeight * 0.18) {
+      activeSection = target;
+    }
+  });
+
+  folioSectionTargets.forEach((target) => {
+    target.dataset.folioActive = String(target === activeSection);
+  });
+};
+
 const updateScrollEffects = () => {
   scrollEffectFrame = undefined;
+
+  const viewportHeight = window.innerHeight || 1;
+  updateFolioState(viewportHeight);
 
   if (reducedMotionQuery.matches) {
     setStaticScrollState();
     return;
   }
-
-  const viewportHeight = window.innerHeight || 1;
 
   scrollProgressTargets.forEach((target) => {
     const rect = target.getBoundingClientRect();
@@ -241,7 +265,26 @@ const handleMotionPreferenceChange = () => {
   }
 };
 
+const alignToCurrentHash = () => {
+  const targetId = window.location.hash.slice(1);
+
+  if (!targetId) {
+    return;
+  }
+
+  const target = document.getElementById(targetId);
+
+  if (!target) {
+    return;
+  }
+
+  target.scrollIntoView({ block: "start", behavior: "auto" });
+  requestScrollEffects();
+};
+
 updateScrollEffects();
+alignToCurrentHash();
 window.addEventListener("scroll", requestScrollEffects, { passive: true });
 window.addEventListener("resize", requestScrollEffects);
+window.addEventListener("hashchange", alignToCurrentHash);
 reducedMotionQuery.addEventListener("change", handleMotionPreferenceChange);
