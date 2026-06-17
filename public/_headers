@@ -1,0 +1,15 @@
+/
+  Link: </sitemap.xml>; rel="describedby"; type="application/xml", </llms.txt>; rel="describedby"; type="text/markdown", </portfolio.md>; rel="service-doc"; type="text/markdown", </.well-known/api-catalog>; rel="api-catalog"; type="application/json"
+  Vary: Accept
+
+/llms.txt
+  Content-Type: text/markdown; charset=utf-8
+
+/portfolio.md
+  Content-Type: text/markdown; charset=utf-8
+
+/card.md
+  Content-Type: text/markdown; charset=utf-8
+
+/.well-known/api-catalog
+  Content-Type: application/json; charset=utf-8

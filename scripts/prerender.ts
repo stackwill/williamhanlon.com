@@ -1,4 +1,12 @@
 import { mkdir } from "node:fs/promises";
+import {
+  renderApiCatalogJson,
+  renderCardMarkdown,
+  renderLlmsTxt,
+  renderPortfolioMarkdown,
+  renderRobotsTxt,
+  renderSitemapXml,
+} from "../src/agent-resources";
 import { renderPageHtml } from "../src/render";
 
 const indexPath = "dist/index.html";
@@ -16,3 +24,11 @@ await Bun.write(indexPath, renderDocument("/"));
 
 await mkdir("dist/card", { recursive: true });
 await Bun.write("dist/card/index.html", renderDocument("/card"));
+
+await mkdir("dist/.well-known", { recursive: true });
+await Bun.write("dist/sitemap.xml", renderSitemapXml());
+await Bun.write("dist/robots.txt", renderRobotsTxt());
+await Bun.write("dist/llms.txt", renderLlmsTxt());
+await Bun.write("dist/portfolio.md", renderPortfolioMarkdown());
+await Bun.write("dist/card.md", renderCardMarkdown());
+await Bun.write("dist/.well-known/api-catalog", renderApiCatalogJson());
