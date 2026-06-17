@@ -124,7 +124,99 @@ ${canonicalRoutes
 </urlset>
 `;
 
-export const renderRobotsTxt = () => `Sitemap: ${absoluteUrl("/sitemap.xml")}
+export const renderRobotsTxt = () => `User-agent: *
+Allow: /
+Content-Signal: search=yes,ai-input=yes,ai-train=no
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-InspectionTool
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+Content-Signal: search=yes,ai-input=yes,ai-train=yes
+
+User-agent: Google-CloudVertexBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: TikTokSpider
+Disallow: /
+
+User-agent: Timpibot
+Disallow: /
+
+User-agent: ProRataInc
+Disallow: /
+
+User-agent: CloudflareBrowserRenderingCrawler
+Disallow: /
+
+User-agent: AnchorBrowser
+Disallow: /
+
+User-agent: NovellumAICrawl
+Disallow: /
+
+Sitemap: ${absoluteUrl("/sitemap.xml")}
 `;
 
 export const renderLlmsTxt = () => `# ${siteData.name}
