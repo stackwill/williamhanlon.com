@@ -124,56 +124,7 @@ ${canonicalRoutes
 </urlset>
 `;
 
-export const renderRobotsTxt = () => `User-agent: *
-Allow: /
-Content-Signal: search=yes,ai-input=yes,ai-train=no
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: GPTBot
-Disallow: /
-
-User-agent: Claude-SearchBot
-Allow: /
-
-User-agent: Claude-User
-Allow: /
-
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: Googlebot
-Allow: /
-
-User-agent: Google-Extended
-Disallow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
-Allow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: Bytespider
-Disallow: /
-
-User-agent: Applebot-Extended
-Disallow: /
-
-User-agent: Amazonbot
-Disallow: /
-
-User-agent: meta-externalagent
-Disallow: /
-
-Sitemap: ${absoluteUrl("/sitemap.xml")}
+export const renderRobotsTxt = () => `Sitemap: ${absoluteUrl("/sitemap.xml")}
 `;
 
 export const renderLlmsTxt = () => `# ${siteData.name}
